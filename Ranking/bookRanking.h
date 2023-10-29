@@ -2,7 +2,9 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <cstring>
 #include "../books/Book.h"
+#include "../books/Library.h"
 
 // Estructura para representar un libro y su relevancia (TF-IDF)
 struct BookRelevance {
@@ -11,14 +13,14 @@ struct BookRelevance {
 };
 
 // Función para calcular el TF-IDF de una palabra clave en un libro
-double calculateTFIDF(const std::string& keyword, const Book& book, const std::vector<Book>& library) {
+double calculateTFIDF(const std::string& keyword, const book& book, const std::vector<book>& library) {
     int termFrequency = 0;
     for (char* p = &book.content[0]; (p = strstr(p, keyword.c_str())); p++) {
         termFrequency++;
     }
 
     int documentFrequency = 0;
-    for (const Book& otherBook : library) {
+    for (const book& otherBook : library) {
         if (otherBook.content.find(keyword) != std::string::npos) {
             documentFrequency++;
         }
@@ -35,7 +37,7 @@ double calculateTFIDF(const std::string& keyword, const Book& book, const std::v
 }
 
 // Función para calcular el ranking de libros basado en palabras clave ingresadas por el usuario
-std::vector<BookRelevance> calculateRanking(const std::vector<std::string>& userKeywords, const std::vector<Book>& library) {
+std::vector<BookRelevance> calculateRanking(const std::vector<std::string>& userKeywords, const std::vector<book>& library) {
     std::vector<BookRelevance> ranking;
 
     for (int i = 0; i < library.size(); i++) {
