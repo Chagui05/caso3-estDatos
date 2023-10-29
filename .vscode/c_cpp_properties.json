@@ -11,17 +11,17 @@
             "includePath": [
                 "${workspaceFolder}",
                 "C:\\Program Files (x86)\\Microsoft SDKs\\Windows\\v10.0A\\bin\\NETFX 4.8.1 Tools",
-                "C:\\msys64\\ucrt64\\bin"
+                "C:\\msys64\\ucrt64\\bin\\"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "${default}"
         }
     ],
     "version": 4
