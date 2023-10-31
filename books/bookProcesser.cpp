@@ -12,9 +12,11 @@
 #include "book.h"
 #include "Library.h"
 
-bool isRegularFile(const std::string& filePath) {
+bool isRegularFile(const std::string &filePath)
+{
     struct stat fileInfo;
-    if (stat(filePath.c_str(), &fileInfo) != 0) {
+    if (stat(filePath.c_str(), &fileInfo) != 0)
+    {
         return false;
     }
     return S_ISREG(fileInfo.st_mode);
@@ -42,15 +44,19 @@ void processFilesInFolder(const std::string& folderPath) {
         }
         closedir(dir);
     }
-    loader.loadBooks(library ,"bookDatabase\\A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens.txt");
-
 }
 
-int main() {
-    cout<<"a"<<endl;
-    const std::string folderPath = "bookDatabase";  // Update with the actual folder path
+int main()
+{
+    cout << "a" << endl;
+    bookLoader prueba;
+    Library books;
 
-    processFilesInFolder(folderPath);
+    prueba.loadBooks(books, "../bookDatabase/hola.txt");
+
+    vector<Book> pru = books.getBooks();
+
+    processFilesInFolder("../bookDatabase");
 
     return 0;
 }

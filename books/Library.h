@@ -6,8 +6,19 @@
 #include "book.h"
 using namespace std;
 class Library {
+    private:
+    std::vector<Book> books;
+
     public:
-    std::vector<book> library;
+
+    void addToBooks(Book book){
+        books.push_back(book);
+    }
+
+    vector<Book> getBooks()
+    {
+        return books;
+    }
 
 };
 

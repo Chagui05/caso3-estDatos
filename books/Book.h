@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-struct book {
+struct Book {
     std::string title;
     std::string description;
     std::string author;
@@ -11,8 +11,5 @@ struct book {
     std::string content;  // El contenido del libro como una cadena de texto
     
 };
-std::vector<book> library;
-
-
 
 #endif
