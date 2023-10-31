@@ -23,30 +23,46 @@ public:
         Book book;
 
         std::string line;
-        while (std::getline(file, line))
-        {
-            if (line.find("Title:") == 0)
-            {
-                book.title = line.substr(7);
-            }
-            else if (line.find("Author:") == 0)
-            {
-                book.author = line.substr(8);
-            }
-            else if (line.find("Year:") == 0)
-            {
-                book.date = std::stoi(line.substr(6));
-            }
-            else
-            {
-                book.content += line + "\n";
-            }
-        }
+        std::getline(file,line);
+        book.title = line.substr(10);
+        std::getline(file,line);
+        std::getline(file,line);
+        book.description = line.substr(13);
+        std::getline(file,line);
+        std::getline(file,line);
+        book.author = line.substr(8);
+        std::getline(file,line);
+        std::getline(file,line);
+        book.date = line.substr(14);
+        std::getline(file,line);
+        std::getline(file,line);
+        book.content = line + "\n";
+        // while (std::getline(file, line))
+        // {
+        //     if (line.find("Title:") == 0)
+        //     {
+        //         book.title = line.substr(7);
+        //     }
+        //     else if (line.find("Author:") == 0)
+        //     {
+        //         book.author = line.substr(8);
+        //     }
+        //     else if (line.find("Year:") == 0)
+        //     {
+        //         book.date = std::stoi(line.substr(6));
+        //     }
+        //     else
+        //     {
+        //         book.content += line + "\n";
+        //     }
+        // }
         library.addToBooks(book);
         file.close();
-        cout << book.title << endl;
-        cout << book.author << endl;
-        cout << book.date << endl;
+        cout << "Title: "<<book.title << endl;
+        cout << "Description: "<<book.description <<endl;
+        cout << "Author: "<<book.author << endl;
+        cout << "Release Date: "<<book.date << endl;
+        cout << endl;
     }
 };
 

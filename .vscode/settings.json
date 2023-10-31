@@ -50,6 +50,7 @@
         "numbers": "cpp",
         "sstream": "cpp",
         "stdexcept": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "list": "cpp"
     }
 }

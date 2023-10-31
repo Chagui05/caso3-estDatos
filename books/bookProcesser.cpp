@@ -30,12 +30,11 @@ void processFilesInFolder(const std::string& folderPath) {
     struct dirent *entry;
 
     dir = opendir(folderPath.c_str());
-    cout << entry << endl;
     if (dir) {
         while ((entry = readdir(dir)) != nullptr) {
             const std::string fileName = entry->d_name;
             const std::string filePath = folderPath + "/" + fileName;
-            cout << filePath << endl;
+            //cout << filePath << endl;
 
             if (isRegularFile(filePath)) {
                 loader.loadBooks(library ,filePath);
@@ -48,11 +47,8 @@ void processFilesInFolder(const std::string& folderPath) {
 
 int main()
 {
-    cout << "a" << endl;
     bookLoader prueba;
     Library books;
-
-    prueba.loadBooks(books, "../bookDatabase/hola.txt");
 
     vector<Book> pru = books.getBooks();
 
