@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include "BookHasher.cpp"
+#include "BookHasher.h"
 using namespace std;
 
 int main()
@@ -16,5 +16,7 @@ int main()
 
     BookHasher bookHasher = BookHasher();
     bookHasher.hashBooksInFolder("../bookDatabase");
+
+    bookHasher.getAllBooks()->at(0).printWordIndex();
     
 };

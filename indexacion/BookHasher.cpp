@@ -6,18 +6,17 @@
 #include <string>
 #include <vector>
 #include <filesystem>
-#include "Book.h"
+#include "Library.h"
 using namespace std;
 namespace fs = std::filesystem;
 
 class BookHasher
 {
 private:
-    vector<Book> books;
+    Library books;
 
 public:
-    
-    BookHasher() {};
+    BookHasher(){};
 
     void hashBooksInFolder(const string &folderPath)
     {
@@ -27,14 +26,33 @@ public:
             Book book = Book("", "", "");
             book.buildBook(path);
             cout << path << endl;
-            books.push_back(book);
+            books.addToBooks(book);
         }
     };
 
-    vector<Book>* getBooks()
+    void ranker(string search)
     {
-        return &books;
-    };
+        vector<Book> *allBooks = books.getBooks();
 
+        for (int i = 0; i < allBooks->size(); i++)
+        {
+            unordered_map<string, vector<int>> wordIndex = allBooks->at(i).getWordIndex();
+
+            if (wordIndex.find(search) != wordIndex.end())
+            {
+
+                cout << "Se encontró" << endl;
+            }
+            else
+            {
+                cout << " No se encontró" << endl;
+            }
+        }
+    }
+
+    vector<Book> *getAllBooks()
+    {
+        return books.getBooks();
+    };
 };
 #endif
