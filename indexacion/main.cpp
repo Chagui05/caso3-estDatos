@@ -3,17 +3,18 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include "book.h"
+#include "BookHasher.cpp"
 using namespace std;
 
 int main()
 {
     Book book = Book("","","");
-    string path = "../bookDatabase/A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens.txt";
-    book.loadBook(path);
+    string path = "txt.txt";
 
-    cout << book.getTitle() << endl;
-    cout << book.getDescription() << endl;
-    cout << book.getAuthor() << endl;
+    book.buildBook(path);
+    book.printWordIndex();
+
+    BookHasher bookHasher = BookHasher();
+    bookHasher.hashBooksInFolder("../bookDatabase");
     
-}
+};

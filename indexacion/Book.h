@@ -1,15 +1,16 @@
+#ifndef _BOOK_
+#define _BOOK_ 1
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include "ValidWord.h"
 using namespace std;
 
 class Book
 {
 private:
-    unordered_map<ValidWord, vector<int>> wordIndex;
+    unordered_map<string, vector<int>> wordIndex;
     string title;
     string description;
     string author;
@@ -20,6 +21,12 @@ public:
         this->title = title;
         this->description = description;
         this->author = author;
+    }
+    
+    void buildBook(string &filePath)
+    {
+        loadBook(filePath);
+        indexContent(filePath);
     }
 
     void loadBook(string &filePath)
@@ -50,7 +57,6 @@ public:
     {
         ifstream file(filePath);
         string word;
-        ValidWord validWord;
 
         int position = 0;
 
@@ -62,14 +68,10 @@ public:
 
         while (file >> word)
         {
-            validWord.setWord(word);
-            if (word.length() > 4 && wordIndex.find(validWord) == wordIndex.end())
+            if (word.length() > 4)
             {
-                wordIndex[validWord].push_back(position);
-            }
-            else if (word.length() > 4 && wordIndex.find(validWord) != wordIndex.end())
-            {
-                wordIndex[validWord].push_back(position);
+                wordIndex[word].push_back(position);
+
             }
             position++;
         }
@@ -88,13 +90,27 @@ public:
         return author;
     }
 
-    unordered_map<ValidWord, vector<int>> getWordIndex()
+    unordered_map<string, vector<int>> getWordIndex()
     {
         return wordIndex;
     }
 
-    void setWordIndex(unordered_map<ValidWord, vector<int>> wordIndex)
+    void setWordIndex(unordered_map<string, vector<int>> wordIndex)
     {
         this->wordIndex = wordIndex;
     }
+
+    void printWordIndex()
+    {
+        for (const auto &pair : wordIndex)
+        {
+            std::cout <<"reps: " << pair.second.size() << " " << pair.first << ": ";
+            for (int pos : pair.second)
+            {
+                std::cout << pos << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
 };
+#endif
