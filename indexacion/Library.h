@@ -11,7 +11,7 @@ class Library
 {
 private:
     vector<Book> allBooks;
-    vector<Book> topBooks;
+    vector<Book*> topBooks;
 
 public:
 
@@ -22,7 +22,7 @@ public:
         allBooks.push_back(book);
     }
 
-    void addToTopBooks(Book &book)
+    void addToTopBooks(Book *book)
     {
         topBooks.push_back(book);
     }
@@ -32,9 +32,17 @@ public:
         return &allBooks;
     }
 
-    vector<Book>* getTopBooks()
+    vector<Book*>* getTopBooks()
     {
         return &topBooks;
+    }
+
+    void printTopBooks()
+    {
+        for (int i = 0; i < topBooks.size(); i++)
+        {
+            cout << topBooks.at(i)->getTitle() << endl;
+        }
     }
 
 };

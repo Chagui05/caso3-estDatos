@@ -1,14 +1,5 @@
 all:
-	g++ Main.cpp -o Main.o
-
-list: 
-	g++ CircularLinkedList.cpp -o CircularLinkedList.o
-
-news:
-	g++ News.cpp -o News.o
-
-main:
-	g++ -o Main.o Main.cpp -lcurl
+	g++ prueba.cpp -o main.o
 
 #g++ -o news.o news.cpp -lcurl
 #g++ -o Main.o Main.cpp -lcurl

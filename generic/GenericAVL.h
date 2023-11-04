@@ -4,11 +4,15 @@
 template <typename T>
 class Node
 {
+private:
+
     T *data;
     Node *left;
     Node *right;
     Node *parent;
     int height;
+
+public:
 
     Node(T *value)
     {
@@ -176,7 +180,3 @@ public:
     }
 };
 
-int main()
-{
-    return 0;
-}
