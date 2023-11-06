@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 using namespace std;
+void toLowerCase(string& str);
 
 class Book
 {
@@ -70,8 +71,8 @@ public:
         {
             if (word.length() > 4)
             {
+                toLowerCase(word);
                 wordIndex[word].push_back(position);
-
             }
             position++;
         }
@@ -113,4 +114,10 @@ public:
         }
     }
 };
+void toLowerCase(string& str) {
+    for (char& c : str) {
+        c = tolower(c);
+    }
+}
+
 #endif

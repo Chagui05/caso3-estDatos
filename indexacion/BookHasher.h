@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <cctype>
 #include <filesystem>
 #include "Library.h"
 #include "../generic/MultiAVLImplementation.h"
@@ -32,7 +33,7 @@ public:
         }
     };
 
-    void getMultiSetAVL(vector<string> search)
+    void getRankedMultiSetAVL(vector<string> search)
     {
         vector<Book>* allBooks = books.getBooks();
         rankedBooks = MultisetAVLTree<Book>();
@@ -43,10 +44,11 @@ public:
             int appearances = 0;
             for (string s : search)
             {
+                toLowerCase(s);
+                cout<<"Buscando: "<<s<<endl;
                 if (wordIndex.find(s) != wordIndex.end())
                 {
                     string title = allBooks->at(i).getTitle();
-                    cout << "Se encontró " << s << " en: "<<title << endl;
                     cout<<"Apariciones: "<<wordIndex[s].size()<<endl;
                     cout<<endl;
                     
@@ -88,4 +90,5 @@ public:
     };
 
 };
+
 #endif
