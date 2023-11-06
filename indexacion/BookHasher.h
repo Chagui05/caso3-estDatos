@@ -52,11 +52,6 @@ public:
                     
                     appearances += wordIndex[s].size();
                 }
-                else
-                {
-                    cout << " No se encontró" << endl;
-                    cout<<endl;
-                }
             }
             if (appearances > 0)
             {

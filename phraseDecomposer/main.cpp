@@ -2,7 +2,7 @@
 #include "PhraseDecomposer.h"
 
 int main() {
-    string phrase = "musketeers alexandre fourth hello magic attempt";
+    string phrase = "the save three musketeers save the day";
     PhraseDecomposer decomposer = PhraseDecomposer();
     PhraseBookSearcher phraseBookSearcher = PhraseBookSearcher(decomposer, phrase);
     phraseBookSearcher.search();
