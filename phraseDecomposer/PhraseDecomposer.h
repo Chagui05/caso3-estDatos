@@ -1,3 +1,6 @@
+#ifndef _PHRASEDECOMPOSER_
+#define _PHRASEDECOMPOSER_ 1
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -120,16 +123,4 @@ private:
     }
 };
 
-int main() {
-    PhraseDecomposer decomposer;
-    std::string inputText = "This is a sample text with some stopwords in it.";
-    std::string result = decomposer.removeStopwords(inputText);
-    std::cout << "Texto original: " << inputText << std::endl;
-    std::cout << "Texto sin stopwords: " << result << std::endl;
-    std::cout << "Palabras del texto sin stopwords: "<<std::endl;;
-    for (const string& word : decomposer.getWords(result)) {
-        std::cout <<"Palabra: "<< word << std::endl;
-    }
-
-    return 0;
-}
+#endif
