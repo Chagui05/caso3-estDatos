@@ -32,11 +32,11 @@ int main()
     cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
     cout <<endl<<endl;
 
-    bookHasher.getMultiSetAVL(search);
+    bookHasher.getRankedMultiSetAVL(search);
 
     cout <<endl<<endl;
     cout << "BOOKS RANKED" << endl;
-    int num = 10;
+    int num = 3;
     cout << "Top: " << num << endl;
 
     bookHasher.setTopAmountBooks(num);
