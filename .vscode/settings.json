@@ -51,6 +51,10 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "valarray": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "codecvt": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp"
     }
 }
