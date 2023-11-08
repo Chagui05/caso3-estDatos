@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include "../prelim#2/Parragraph.h"
 using namespace std;
 void toLowerCase(string& str);
 
@@ -15,6 +16,9 @@ private:
     string title;
     string description;
     string author;
+    string filePath;
+    vector<Parragraph> top3Parragraphs;
+    vector<string> wordMatches;
 
 public:
     Book(string title, string description, string author)
@@ -112,6 +116,14 @@ public:
             }
             std::cout << std::endl;
         }
+    }
+    vector<string> getWordMatches()
+    {
+        return wordMatches;
+    }
+    void addWordMatch(string word)
+    {
+        wordMatches.push_back(word);
     }
 };
 void toLowerCase(string& str) {

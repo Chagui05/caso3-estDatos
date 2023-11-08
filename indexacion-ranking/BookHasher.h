@@ -8,16 +8,13 @@
 #include <cctype>
 #include <filesystem>
 #include "Library.h"
+#include "BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
 using namespace std;
 namespace fs = std::filesystem;
 
-class BookHasher
+class BookHasher : public BookOperations<Book>
 {
-private:
-    Library books;
-    MultisetAVLTree<Book> rankedBooks;
-
 public:
     BookHasher(){};
 
@@ -36,7 +33,7 @@ public:
     void getRankedMultiSetAVL(vector<string> search)
     {
         vector<Book>* allBooks = books.getBooks();
-        rankedBooks = MultisetAVLTree<Book>();
+        ranked = MultisetAVLTree<Book>();
 
         for (int i = 0; i < allBooks->size(); i++)
         {
@@ -49,6 +46,7 @@ public:
                 if (wordIndex.find(s) != wordIndex.end())
                 {
                     string title = allBooks->at(i).getTitle();
+                    allBooks->at(i).addWordMatch(s);
                     cout<<"Apariciones: "<<wordIndex[s].size()<<endl;
                     cout<<endl;
                     
@@ -62,14 +60,14 @@ public:
             }
             if (appearances > 0)
             {
-                rankedBooks.insert(&allBooks->at(i), appearances);
+                ranked.insert(&allBooks->at(i), appearances);
             }
         }
     }
 
     void setTopAmountBooks(int amount)
     {
-        vector<Book*>* a = rankedBooks.topVector();
+        vector<Book*>* a = ranked.topVector();
 
         vector<Book*> generalTop = *a;
 
@@ -79,14 +77,9 @@ public:
         }
     }
 
-    Library *getLibrary()
-    {
-        return &books;
-    };
-
     void printRankedBooks()
     {
-        rankedBooks.printReverseInOrder();
+        ranked.printReverseInOrder();
     };
 
 };

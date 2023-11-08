@@ -42,6 +42,11 @@ public:
         for (int i = 0; i < topBooks.size(); i++)
         {
             cout << topBooks.at(i)->getTitle() << endl;
+            for (int j = 0; j <topBooks.at(i)->getWordMatches().size(); j++)
+            {
+                cout << topBooks.at(i)->getWordMatches().at(j) << endl;
+            }
+            cout <<endl;
         }
     }
 

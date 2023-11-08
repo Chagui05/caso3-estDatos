@@ -1,6 +1,8 @@
 #include <iostream>
 #include <algorithm>
 
+
+//ayuda de chatgpt
 template <typename T>
 class Node
 {
