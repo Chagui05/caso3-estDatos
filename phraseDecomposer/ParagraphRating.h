@@ -49,12 +49,12 @@ int calculateRating(const std::string& paragraph, const std::vector<std::string>
     return rating;
 }
 
-int main() {
-    std::string paragraph = "THe beast of the night returns, as the beast arises, the night does so, the night is young beast beast beast beast night night hello hello hello beast night";
-    std::vector<std::string> wordsToLookFor = {"beast", "night"};
+// int main() {
+//     std::string paragraph = "THe beast of the night returns, as the beast arises, the night does so, the night is young beast beast beast beast night night hello hello hello beast night";
+//     std::vector<std::string> wordsToLookFor = {"beast", "night"};
 
-    int rating = calculateRating(paragraph, wordsToLookFor);
-    std::cout << "Rating: " << rating << std::endl;
+//     int rating = calculateRating(paragraph, wordsToLookFor);
+//     std::cout << "Rating: " << rating << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
