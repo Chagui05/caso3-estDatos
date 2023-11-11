@@ -23,10 +23,11 @@ public:
         for (const auto &file : fs::directory_iterator(folderPath))
         {
             string path = file.path();
-            Book book = Book("", "", "");
-            book.buildBook(path);
+            Book book = Book();
             cout << path << endl;
+            book.buildBook(path);
             books.addToBooks(book);
+            cout<<"yes"<<endl<<endl;
         }
     };
 
