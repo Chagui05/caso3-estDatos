@@ -185,7 +185,10 @@ public:
     {
         allParragraphsRanked.insert(&parragraph, parragraph.getRating());
     }
-
+    MultisetAVLTree<Parragraph> getAllParragraphsRanked()
+    {
+        return allParragraphsRanked;
+    }
     BTree getBtree()
     {
         return WordParragraphBTree;

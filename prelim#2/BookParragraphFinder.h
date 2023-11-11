@@ -17,7 +17,7 @@ class BookParragraphFinder : public BookOperations<Parragraph>
 {
 private:
     vector<Book> *top10Books;
-    vector<Parragraph> *top30Parragraphs;
+    vector<Parragraph*> *top30Parragraphs;//TODO: check the pointers
 
 public:
     BookParragraphFinder(){};
@@ -44,11 +44,24 @@ public:
                     for (int k = 0; k < word.description.size(); k++)
                     {
                         int rating = calculateRating(word.description.at(k), book.getWordMatches());
-                        Parragraph(book.getTitle(), book.getAuthor(), word.description.at(k), book.getFilePath(), word.pages.at(k), rating);
+                        Parragraph parra = Parragraph(book.getTitle(), book.getAuthor(), word.description.at(k), book.getFilePath(), word.pages.at(k), rating);
+                        book.addToMultiSetAVL(parra);//TODO: check the pointers 
                     }
                 }
             }
             cout << endl;
+        }
+    }
+
+    void setTop30Parragraphs()
+    {
+        for (int i = 0; i < top10Books->size(); i++)
+        {
+            vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked().topVector();//TODO: check the pointers
+            for (int j = 0; j < 3; j++)
+            {
+                top30Parragraphs->push_back(parragraphs->at(j));//TODO: check the pointers
+            }
         }
     }
 };
