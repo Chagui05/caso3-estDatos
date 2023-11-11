@@ -9,6 +9,7 @@ using namespace std;
 
 class Parragraph
 {
+private:
     string bookTitle;
     string bookAuthor;
     string content;
@@ -16,6 +17,32 @@ class Parragraph
     vector<string> wordMatches;
     int page;
     int rating;
+
+public:
+    Parragraph() {}
+    Parragraph(string bookTitle, string bookAuthor, string content, string filePath, int page, int rating)
+    {
+        this->bookTitle = bookTitle;
+        this->bookAuthor = bookAuthor;
+        this->content = content;
+        this->filePath = filePath;
+        this->page = page;
+        this->rating = rating;
+    }
+    vector<string> getWordMatches()
+    {
+        return wordMatches;
+    }
+
+    int getRating()
+    {
+        return rating;
+    }
+
+    int getPage()
+    {
+        return page;
+    }
 
     /*
     string feeling

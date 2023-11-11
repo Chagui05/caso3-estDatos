@@ -15,6 +15,8 @@ namespace fs = std::filesystem;
 
 class BookHasher : public BookOperations<Book>
 {
+private:
+    MultisetAVLTree<Book> ranked;
 public:
     BookHasher(){};
 
@@ -26,8 +28,8 @@ public:
             Book book = Book();
             cout << path << endl;
             book.buildBook(path);
-            books.addToBooks(book);
             cout<<"yes"<<endl<<endl;
+            books.addToBooks(book);
         }
     };
 
@@ -50,7 +52,6 @@ public:
                     allBooks->at(i).addWordMatch(s);
                     cout<<"Apariciones: "<<wordIndex[s].size()<<endl;
                     cout<<endl;
-                    
                     appearances += wordIndex[s].size();
                 }
             }
@@ -63,14 +64,29 @@ public:
 
     void setTopAmountBooks(int amount)
     {
-        vector<Book*>* a = ranked.topVector();
-
-        vector<Book*> generalTop = *a;
+        vector<Book*>* top10 = ranked.topVector();
 
         for (int i = 0; i < amount; i++)
         {
-            books.addToTopBooks(generalTop.at(i));
+            cout <<"adding: "<< top10->at(i)->getTitle();
+            Book adding = *top10->at(i);
+            books.addToTopBooks(adding);
         }
+    }
+
+    vector<Book>* getTop10Books()
+    {
+        vector<Book*>* top = ranked.topVector();
+
+        vector<Book>* top10Books = new vector<Book>();
+        
+        for (int i = 0; i < 10; i++)
+        {
+            cout <<"adding: "<< top->at(i)->getTitle();
+            top10Books->push_back(*top->at(i));
+        }
+
+        return top10Books;
     }
 
     void printRankedBooks()

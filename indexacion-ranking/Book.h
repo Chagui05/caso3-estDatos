@@ -9,6 +9,7 @@
 #include <vector>
 #include "../prelim#2/Parragraph.h"
 #include "../generic/ImplementedBtree.h"
+#include "../generic/MultiAVLImplementation.h"
 using namespace std;
 void toLowerCase(string &str);
 bool isLineEmptyOrWhitespace(const std::string& line);
@@ -21,6 +22,7 @@ private:
     string description;
     string author;
     string filePath;
+    MultisetAVLTree<Parragraph> allParragraphsRanked;
     vector<Parragraph> top3Parragraphs;
     vector<string> wordMatches;
 
@@ -31,13 +33,16 @@ public:
         this->title = title;
         this->description = description;
         this->author = author;
+        WordParragraphBTree = BTree(3);
     }
 
     void buildBook(string &filePath)
     {
         loadBook(filePath);
         indexContent(filePath);
+        cout<<"Book partially built ";
         loadBtree(filePath);
+        cout<<"Book built"<<endl;
     }
 
     void loadBook(string &filePath)
@@ -65,7 +70,7 @@ public:
 
     void loadBtree(string &filePath)
     {
-        WordParragraphBTree = BTree(3);
+        cout<<" ,Loading btree"<<endl;
         ifstream file(filePath);
 
         if (!file)
@@ -114,22 +119,17 @@ public:
         string word;
         while (parragraph >> word)
         {
-            if (word.length() > 4)
-            {
-                // Remove non-letter characters from the string//taken from chatgpt, just this part
-                word.erase(std::remove_if(word.begin(), word.end(), [](char c)
+            // Remove non-letter characters from the string//taken from chatgpt, just this part
+            word.erase(std::remove_if(word.begin(), word.end(), [](char c)
                                           { return !std::isalpha(c); }),
                            word.end());
-                Word wordObj;
-                wordObj.key = word;
-                wordObj.pages.push_back(page);
-                wordObj.description.push_back(pParra);
-                // wordObj.setWord(word, pParra, page);
-                if (wordObj.key == "" || wordObj.key == " ")
-                {
-                    return;
-                }
-                // cout<<word<<" ";
+            toLowerCase(word);
+            Word wordObj;
+            wordObj.key = word;
+            wordObj.pages.push_back(page);
+            wordObj.description.push_back(pParra);
+            if (wordObj.key != "" || wordObj.key != " " || wordObj.key.length() > 4)
+            {
                 WordParragraphBTree.insert(wordObj);
             }
         }
@@ -153,6 +153,9 @@ public:
             if (word.length() > 4)
             {
                 toLowerCase(word);
+                word.erase(std::remove_if(word.begin(), word.end(), [](char c)
+                                          { return !std::isalpha(c); }),
+                           word.end());
                 wordIndex[word].push_back(position);
             }
             position++;
@@ -178,6 +181,11 @@ public:
         wordMatches.push_back(word);
     }
 
+    void addToMultiSetAVL(Parragraph parragraph)
+    {
+        allParragraphsRanked.insert(&parragraph, parragraph.getRating());
+    }
+
     BTree getBtree()
     {
         return WordParragraphBTree;
@@ -194,6 +202,10 @@ public:
     {
         return author;
     }
+    string getFilePath()
+    {
+        return filePath;
+    }
     unordered_map<string, vector<int>> getWordIndex()
     {
         return wordIndex;
@@ -207,6 +219,9 @@ public:
         return wordMatches;
     }
 };
+
+
+
 bool isLineEmptyOrWhitespace(const std::string& line) {
     return line.empty() || std::all_of(line.begin(), line.end(), [](unsigned char c) { return std::isspace(c); });
 }

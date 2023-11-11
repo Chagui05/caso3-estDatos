@@ -6,23 +6,50 @@
 #include <string>
 #include <vector>
 #include <cctype>
-#include <filesystem>
 #include "../indexacion-ranking/Library.h"
 #include "../indexacion-ranking/BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
+#include "../phraseDecomposer/ParagraphRating.h"
 
 using namespace std;
-namespace fs = std::filesystem;
 
 class BookParragraphFinder : public BookOperations<Parragraph>
 {
-public:
+private:
+    vector<Book> *top10Books;
+    vector<Parragraph> *top30Parragraphs;
 
+public:
     BookParragraphFinder(){};
 
-    BookParragraphFinder(Library &library)
+    BookParragraphFinder(vector<Book> *top10)
     {
-        books = library;
-    };
+        top10Books = top10;
+    }
+
+    void findAppearences()
+    {
+        for (int i = 0; i < top10Books->size(); i++)
+        {
+            Book book = top10Books->at(i);
+            cout << book.getTitle() << endl;
+            for (int j = 0; j < book.getWordMatches().size(); j++)
+            {
+                cout << book.getWordMatches().at(j) << endl;
+                Word word = book.getBtree().search(book.getWordMatches().at(j));
+                cout << "se encontro la palabra: " << word.key << endl
+                     << endl;
+                if (word.key != "Key not found")
+                {
+                    for (int k = 0; k < word.description.size(); k++)
+                    {
+                        int rating = calculateRating(word.description.at(k), book.getWordMatches());
+                        Parragraph(book.getTitle(), book.getAuthor(), word.description.at(k), book.getFilePath(), word.pages.at(k), rating);
+                    }
+                }
+            }
+            cout << endl;
+        }
+    }
 };
 #endif

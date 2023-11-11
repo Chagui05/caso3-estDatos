@@ -15,7 +15,6 @@ class BookOperations
 {
 protected:
     Library books;
-    MultisetAVLTree<T> ranked;
 
 public:
 
@@ -24,11 +23,7 @@ public:
         return &books;
     };
 
-    T *getRankedElements()
-    {
-        return &ranked;
-    };
-
+    
     
 };
 #endif
