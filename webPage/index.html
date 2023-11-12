@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4">
+
+        <div id="search-bar" class="mb-8">
+            <label for="search" class="block text-lg font-semibold mb-2">Search:</label>
+            <div class="flex">
+                <input type="text" id="search" placeholder="Type your search term" class="w-2/3 p-2 border border-gray-300 rounded-l">
+                <button onclick="search()" class="w-1/3 bg-blue-500 text-white p-2 rounded-r">Search</button>
+            </div>
+        </div>
+
+        <div id="search-results">
+            <!-- Results will be displayed here dynamically -->
+        </div>
+
+    </div>
+
+    <script>
+        function search() {
+            var searchTerm = document.getElementById('search').value;
+
+            // Assuming you have a function to fetch search results
+            // Replace the following lines with your actual API call or data processing logic
+            var searchResults = [
+                {
+                    author: 'John Doe',
+                    title: 'Sample Title',
+                    page: 'Page 1',
+                    paragraph: 'This is a sample paragraph.',
+                    feeling: 'Happy',
+                    image: 'image1.jpg'
+                },
+                // Add more search results as needed
+            ];
+
+            displaySearchResults(searchResults);
+        }
+
+        function displaySearchResults(results) {
+            var resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            results.forEach(result => {
+                var resultDiv = document.createElement('div');
+                resultDiv.classList.add('mb-8', 'border', 'p-4', 'rounded');
+
+                resultDiv.innerHTML = `
+                    <p class="mb-2"><strong>Author:</strong> ${result.author}</p>
+                    <p class="mb-2"><strong>Title, Page:</strong> ${result.title}, ${result.page}</p>
+                    <p class="mb-2"><strong>Paragraph:</strong> ${result.paragraph}</p>
+                    <p class="mb-2"><strong>Feeling:</strong> ${result.feeling}</p>
+                    <img src="${result.image}" alt="Image" class="mt-2 w-full">
+                `;
+
+                resultsContainer.appendChild(resultDiv);
+            });
+        }
+    </script>
+
+</body>
+</html>
