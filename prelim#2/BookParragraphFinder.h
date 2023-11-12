@@ -9,7 +9,7 @@
 #include "../indexacion-ranking/Library.h"
 #include "../indexacion-ranking/BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
-#include "../phraseDecomposer/ParagraphRating.h"
+#include "ParagraphRating.h"//TODO: check the directory
 
 using namespace std;
 
