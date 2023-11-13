@@ -60,35 +60,28 @@ int main()
     book->loadBtree(path2);
     book->getBtree()->traverse();
 
-    // Word* neww = new Word();
+    Word* neww = book->getBtree()->search(new string("hello"));
 
-    // string a = "hello";
-    // int b = 1;
-
-    // neww->setWord(a , a, b);
-
-    // book.getBtree()->insert(neww);
-
-  // if (*result->key != "Key not found")
-  // {
-  //   cout << "Key found: " << result->key << endl;
-    // cout << "Description: ";
-    // for (string*desc : result->description)
-    // {
-    //   cout << desc << " ";
-    // }
-    // cout << endl;
-    // cout << "Pages: ";
-    // for (const auto &page : result->pages)
-    // {
-    //   cout << page << " ";
-    // }
-  //   cout << endl;
-  // }
-  // else
-  // {
-  //   cout << "Key not found" << endl;
-  // }
+  if (*result->key != "Key not found")
+  {
+    cout << "Key found: " << result->key << endl;
+    cout << "Description: ";
+    for (string*desc : result->description)
+    {
+      cout << desc << " ";
+    }
+    cout << endl;
+    cout << "Pages: ";
+    for (const auto &page : result->pages)
+    {
+      cout << page << " ";
+    }
+    cout << endl;
+  }
+  else
+  {
+    cout << "Key not found" << endl;
+  }
 
   return 0;
 };

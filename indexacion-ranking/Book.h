@@ -96,12 +96,11 @@ public:
 
             if (*lineCount == 5) // for a parragraph
             {
-                cout << *parragraph << endl<< endl;
+                
                 loadBtreeHelper(parragraph, page);
                 *lineCount = 0;
                 delete parragraph; 
                 parragraph = new string();
-                cout << *parragraph << endl<< endl;
             }
 
             (*lineCount)++;
@@ -197,7 +196,8 @@ public:
 
     void addToMultiSetAVL(Parragraph parragraph)
     {
-        allParragraphsRanked.insert(&parragraph, parragraph.getRating());
+        Parragraph* parr = new Parragraph(parragraph);
+        allParragraphsRanked.insert(parr, parragraph.getRating());
     }
     MultisetAVLTree<Parragraph> getAllParragraphsRanked()
     {

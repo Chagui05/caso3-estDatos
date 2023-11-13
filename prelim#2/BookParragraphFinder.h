@@ -27,31 +27,44 @@ public:
         top10Books = top10;
     }
 
-    // void findAppearences()
-    // {
-    //     for (int i = 0; i < top10Books->size(); i++)
-    //     {
-    //         Book book = top10Books->at(i);
-    //         cout << book.getTitle() << endl;
-    //         for (int j = 0; j < book.getWordMatches().size(); j++)
-    //         {
-    //             cout << book.getWordMatches().at(j) << endl;
-    //             Word word = book.getBtree().search(book.getWordMatches().at(j));
-    //             cout << "se encontro la palabra: " << word.key << endl
-    //                  << endl;
-    //             if (word.key != "Key not found")
-    //             {
-    //                 for (int k = 0; k < word.description.size(); k++)
-    //                 {
-    //                     int rating = calculateRating(word.description.at(k), book.getWordMatches());
-    //                     Parragraph parra = Parragraph(book.getTitle(), book.getAuthor(), word.description.at(k), book.getFilePath(), word.pages.at(k), rating);
-    //                     book.addToMultiSetAVL(parra);//TODO: check the pointers 
-    //                 }
-    //             }
-    //         }
-    //         cout << endl;
-    //     }
-    // }
+    void findAppearences()
+    {
+        for (int i = 0; i < top10Books->size(); i++)
+        {
+            Book book = top10Books->at(i);
+            cout << book.getTitle() << endl;
+            for (int j = 0; j < book.getWordMatches().size(); j++)
+            {
+                string* lookFor = new string(book.getWordMatches().at(j));
+
+                cout << *lookFor << endl;
+
+                Word* word = book.getBtree()->search(lookFor);
+
+                cout << "se encontro la palabra: " << *word->key << endl<< endl;
+                if (*word->key != "Key not found")
+                {
+                    for (int k = 0; k < word->description->size(); k++)
+                    {
+                        cout << *word->description->at(k) << endl;
+                        int* rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
+                        string* title = new string(book.getTitle());
+                        string* author = new string(book.getAuthor());
+                        string* filePath = new string(book.getFilePath());
+
+                        Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        delete rating;
+                        delete title;
+                        delete author;
+                        delete filePath;
+                        book.addToMultiSetAVL(parra);//TODO: check the pointers 
+                    }
+                }
+                delete lookFor;
+            }
+            cout << endl;
+        }
+    }
 
     void setTop30Parragraphs()
     {
