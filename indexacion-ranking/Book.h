@@ -33,7 +33,6 @@ public:
         this->title = title;
         this->description = description;
         this->author = author;
-        WordParragraphBTree = new BTree(3);
     }
 
     void buildBook(string &filePath)
@@ -70,6 +69,7 @@ public:
 
     void loadBtree(string &filePath)
     {
+        WordParragraphBTree = new BTree(3);
         cout<<" ,Loading btree"<<endl;
         ifstream file(filePath);
 
@@ -81,11 +81,11 @@ public:
         string *parragraph = new string();
         string* line = new string();
         string *space = new string(" ");
-        int* page = new int(1);
+        int *page = new int(1);
         int *lineCount = new int(1);
         int *generalLineCount = new int(1);
 
-        while (getline(file, *line))
+        while (getline(file, *line)) 
         {
             if (!isLineEmptyOrWhitespace(*line))
             {
@@ -96,18 +96,21 @@ public:
 
             if (*lineCount == 5) // for a parragraph
             {
-                // cout << parragraph << endl<< endl;
+                cout << *parragraph << endl<< endl;
                 loadBtreeHelper(parragraph, page);
-                lineCount = new int(0);
-                parragraph = space;
+                *lineCount = 0;
+                delete parragraph; 
+                parragraph = new string();
+                cout << *parragraph << endl<< endl;
             }
 
-            lineCount++;
-            generalLineCount++;
+            (*lineCount)++;
+            (*generalLineCount)++;
 
             if (*generalLineCount == 40) // for a page
             {
-                page++;
+                (*page)++;
+                delete generalLineCount; 
                 generalLineCount = new int(1);
             }
         }
@@ -115,6 +118,7 @@ public:
         delete line;
         delete space;
         file.close(); //// probar eso
+        cout<<"btree loaded"<<endl;
     }
 
     void loadBtreeHelper(string *pParra, int *page) // this will look up the words in the parragraph and add them to the btree
@@ -130,8 +134,8 @@ public:
             toLowerCase(word);
             Word* wordObj = new Word();
             wordObj->key = new string(word);
-            wordObj->pages->at(0) = page;
-            wordObj->description->at(0) = pParra;
+            wordObj->pages->push_back(page);
+            wordObj->description->push_back(pParra);
 
             if (word != "" || word != " " || word.length() > 4)
             {
@@ -179,6 +183,11 @@ public:
             }
             std::cout << std::endl;
         }
+    }
+
+    void printBTree()
+    {
+        WordParragraphBTree->traverse();
     }
 
     void addWordMatch(string word)

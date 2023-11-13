@@ -54,29 +54,35 @@ int main()
 
 
     cout<<"inicio"<<endl; 
-    Book book = Book();
-    string path = "../bookDatabase/Adventures of Huckleberry Finn by Mark Twain.txt";
-    book.loadBtree(path);
-    // book.getBtree().traverse();
+    Book* book = new Book();
+    string path = "../bookDatabase/A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens.txt";
+    string path2 = "../problematicBooks/Ulysses by James Joyce.txt";
+    book->loadBtree(path2);
+    book->getBtree()->traverse();
 
+    // Word* neww = new Word();
 
+    // string a = "hello";
+    // int b = 1;
 
-  //   Word result = book.getBtree().search("magic");
+    // neww->setWord(a , a, b);
 
-  // if (result.key != "Key not found")
+    // book.getBtree()->insert(neww);
+
+  // if (*result->key != "Key not found")
   // {
-  //   cout << "Key found: " << result.key << endl;
-  //   cout << "Description: ";
-  //   for (const auto &desc : result.description)
-  //   {
-  //     cout << desc << " ";
-  //   }
-  //   cout << endl;
-  //   cout << "Pages: ";
-  //   for (const auto &page : result.pages)
-  //   {
-  //     cout << page << " ";
-  //   }
+  //   cout << "Key found: " << result->key << endl;
+    // cout << "Description: ";
+    // for (string*desc : result->description)
+    // {
+    //   cout << desc << " ";
+    // }
+    // cout << endl;
+    // cout << "Pages: ";
+    // for (const auto &page : result->pages)
+    // {
+    //   cout << page << " ";
+    // }
   //   cout << endl;
   // }
   // else

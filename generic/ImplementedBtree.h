@@ -81,6 +81,11 @@ public:
     }
   }
   void insert(Word* word);
+  bool isEmpty();
+   BTreeNode * getRoot()
+  {
+    return root;
+  }
   
 };
 
@@ -110,6 +115,16 @@ void BTreeNode::traverse()
   if (!isLeaf)
     children[i]->traverse();
 }
+
+bool BTree::isEmpty()
+{
+  if (root != NULL)
+    return false;
+  else
+   return true;
+}
+
+
 void BTreeNode::insertNonFull(Word* word)
 {
   int i = numKeys - 1;
@@ -274,10 +289,11 @@ BTree* getBTree()
 
 // int main()
 // {
-//   PruebaBtree prueba;
+//   PruebaBtree *prueba = new PruebaBtree();
 
-//   prueba.generateBtree();
-//   prueba.getBTree()->traverse();
+//   prueba->generateBtree();
+//   bool see = prueba->getBTree()->isEmpty();
+//   cout << (see==false) << endl;
 
 //   return 0;
 // }
