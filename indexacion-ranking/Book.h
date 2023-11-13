@@ -136,7 +136,7 @@ public:
             wordObj->pages->push_back(page);
             wordObj->description->push_back(pParra);
 
-            if (word != "" || word != " " || word.length() > 4)
+            if (word.length() > 4)
             {
                 WordParragraphBTree->insert(wordObj);
             }

@@ -55,27 +55,26 @@ int main()
 
     cout<<"inicio"<<endl; 
     Book* book = new Book();
-    string path = "../bookDatabase/A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens.txt";
-    string path2 = "../problematicBooks/Ulysses by James Joyce.txt";
-    book->loadBtree(path2);
+    string path = "../bookDatabase/Ulysses by James Joyce.txt";
+    book->loadBtree(path);
     book->getBtree()->traverse();
 
-    Word* neww = book->getBtree()->search(new string("hello"));
+  Word* result = book->getBtree()->search(new string("archive"));
 
   if (*result->key != "Key not found")
   {
     cout << "Key found: " << result->key << endl;
     cout << "Description: ";
-    for (string*desc : result->description)
-    {
-      cout << desc << " ";
-    }
-    cout << endl;
-    cout << "Pages: ";
-    for (const auto &page : result->pages)
-    {
-      cout << page << " ";
-    }
+    // for (string*desc : result->description)
+    // {
+    //   cout << desc << " ";
+    // }
+    // cout << endl;
+    // cout << "Pages: ";
+    // for (const auto &page : result->pages)
+    // {
+    //   cout << page << " ";
+    // }
     cout << endl;
   }
   else
