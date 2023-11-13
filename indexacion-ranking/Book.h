@@ -17,7 +17,7 @@ class Book
 {
 private:
     unordered_map<string, vector<int>> wordIndex; // for word indexing
-    BTree WordParragraphBTree;                    // for paragraph indexing
+    BTree* WordParragraphBTree;                    // for paragraph indexing
     string title;
     string description;
     string author;
@@ -33,7 +33,7 @@ public:
         this->title = title;
         this->description = description;
         this->author = author;
-        WordParragraphBTree = BTree(3);
+        WordParragraphBTree = new BTree(3);
     }
 
     void buildBook(string &filePath)
@@ -78,44 +78,48 @@ public:
             cout << "Error al abrir el archivo: " << filePath << std::endl;
             return;
         }
-        string parragraph;
-        string line;
-        int page = 1;
-        int lineCount = 1;
-        int generalLineCount = 1;
+        string *parragraph = new string();
+        string* line = new string();
+        string *space = new string(" ");
+        int* page = new int(1);
+        int *lineCount = new int(1);
+        int *generalLineCount = new int(1);
 
-        while (getline(file, line))
+        while (getline(file, *line))
         {
-            if (!isLineEmptyOrWhitespace(line))
+            if (!isLineEmptyOrWhitespace(*line))
             {
-                line.erase(std::remove(line.begin(), line.end(), '\n'), line.end());
-                line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
-                parragraph += " "+line;
+                line->erase(std::remove(line->begin(), line->end(), '\n'), line->end());
+                line->erase(std::remove(line->begin(), line->end(), '\r'), line->end());
+                *parragraph += *space+*line;
             }
 
-            if (lineCount == 5) // for a parragraph
+            if (*lineCount == 5) // for a parragraph
             {
                 // cout << parragraph << endl<< endl;
                 loadBtreeHelper(parragraph, page);
-                lineCount = 0;
-                parragraph = "";
+                lineCount = new int(0);
+                parragraph = space;
             }
 
             lineCount++;
             generalLineCount++;
 
-            if (generalLineCount == 40) // for a page
+            if (*generalLineCount == 40) // for a page
             {
                 page++;
-                generalLineCount = 1;
+                generalLineCount = new int(1);
             }
         }
+        delete parragraph;
+        delete line;
+        delete space;
         file.close(); //// probar eso
     }
 
-    void loadBtreeHelper(string pParra, int page) // this will look up the words in the parragraph and add them to the btree
+    void loadBtreeHelper(string *pParra, int *page) // this will look up the words in the parragraph and add them to the btree
     {
-        istringstream parragraph(pParra);
+        istringstream parragraph(*pParra);
         string word;
         while (parragraph >> word)
         {
@@ -124,13 +128,14 @@ public:
                                           { return !std::isalpha(c); }),
                            word.end());
             toLowerCase(word);
-            Word wordObj;
-            wordObj.key = word;
-            wordObj.pages.push_back(page);
-            wordObj.description.push_back(pParra);
-            if (wordObj.key != "" || wordObj.key != " " || wordObj.key.length() > 4)
+            Word* wordObj = new Word();
+            wordObj->key = new string(word);
+            wordObj->pages->at(0) = page;
+            wordObj->description->at(0) = pParra;
+
+            if (word != "" || word != " " || word.length() > 4)
             {
-                WordParragraphBTree.insert(wordObj);
+                WordParragraphBTree->insert(wordObj);
             }
         }
     }
@@ -189,7 +194,7 @@ public:
     {
         return allParragraphsRanked;
     }
-    BTree getBtree()
+    BTree* getBtree()
     {
         return WordParragraphBTree;
     }

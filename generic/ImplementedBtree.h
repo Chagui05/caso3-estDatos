@@ -10,15 +10,16 @@ int minDegreee = 3;
 
 struct Word
 {
-  string key;
-  vector<string> description;
-  vector<int> pages;
+  string* key;
+  vector<string*>* description;
+  vector<int*>* pages;
 
-  void setWord(string pkey, string pdescription, int ppages)
+  Word() : key(nullptr), description(new vector<string*>), pages(new vector<int*>) {}
+  void setWord(string &pkey, string& pdescription, int& ppages)
   {
-    this->key = pkey;
-    this->description.push_back(pdescription);
-    this->pages.push_back(ppages);
+    this->key = new string(pkey);
+    this->description->push_back(new string(pdescription));
+    this->pages->push_back(new int(ppages));
   }
 };
 
@@ -32,12 +33,15 @@ class BTreeNode
 
 public:
   BTreeNode(int _minDegree, bool _isLeaf);
-  void insertNonFull(Word word);
+  void insertNonFull(Word *word);
   void splitChild(int i, BTreeNode *child);
   void traverse();
-  Word search(string key);
+  Word* search(string *key);
+  Word* findKey(string key);
   friend class BTree;
 };
+
+
 
 class BTree
 {
@@ -62,7 +66,7 @@ public:
       root->traverse();
   }
 
-  Word search(string key)
+  Word* search(string *key)
   {
     if (root != nullptr)
     {
@@ -70,14 +74,17 @@ public:
     }
     else
     {
-      Word notFound;
-      notFound.key = "Key not found";
+      Word* notFound = new Word();
+      string* noFound = new string("Key not found");
+      notFound->key = noFound;
       return notFound;
     }
   }
-
-  void insert(Word word);
+  void insert(Word* word);
+  
 };
+
+
 
 BTreeNode::BTreeNode(int _minDegree, bool _isLeaf)
 {
@@ -97,109 +104,43 @@ void BTreeNode::traverse()
   {
     if (!isLeaf)
       children[i]->traverse();
-    cout << " " << keys[i].key<<endl;
+    cout << " " << *keys[i].key<<endl;
   }
 
   if (!isLeaf)
     children[i]->traverse();
 }
-
-// void BTreeNode::insertNonFull(Word word)
-// {
-//   int i = numKeys - 1;
-//   if (isLeaf)
-//   {
-//     while (i >= 0 && keys[i].key > word.key)
-//     {
-//       if (word.key == keys[i-1].key )
-//       {
-//         keys[i-1].description.push_back(word.description[0]);
-//         keys[i-1].pages.push_back(word.pages[0]);
-//         return;
-//       }
-//       if (word.key == keys[i+1].key && keys[i + 1].key != "") 
-//       {
-//         keys[i+1].description.push_back(word.description[0]);
-//         keys[i+1].pages.push_back(word.pages[0]);
-//         return;
-//       }
-//       if(word.key == keys[i].key && keys[i].key != "") 
-//       {
-//         keys[i].description.push_back(word.description[0]);
-//         keys[i].pages.push_back(word.pages[0]);
-//         return;
-//       }
-//       keys[i + 1] = keys[i];
-//       i--;
-//     }
-//     if (word.key == keys[i].key) 
-//       {
-//         keys[i].description.push_back(word.description[0]);
-//         keys[i].pages.push_back(word.pages[0]);
-//         return;
-//       }
-//     if (word.key == keys[i+1].key && keys[i + 1].key != "") 
-//       {
-//         keys[i+1].description.push_back(word.description[0]);
-//         keys[i+1].pages.push_back(word.pages[0]);
-//         return;
-//       }
-//     keys[i + 1] = word;
-//     numKeys++;
-//   }
-//   else
-//   {
-//     while (i >= 0 && keys[i].key > word.key)
-//       i--;
-//     if (word.key == keys[i].key )
-//     {
-//       keys[i].description.push_back(word.description[0]);
-//       keys[i].pages.push_back(word.pages[0]);
-//       return;
-//     }
-
-//     if (children[i + 1]->numKeys == 2 * minDegree - 1)
-//     {
-//       splitChild(i + 1, children[i + 1]);
-
-//       if (keys[i + 1].key < word.key)
-//         i++;
-//     }
-
-//     children[i + 1]->insertNonFull(word);
-//   }
-// }
-void BTreeNode::insertNonFull(Word word)
+void BTreeNode::insertNonFull(Word* word)
 {
   int i = numKeys - 1;
 
   if (isLeaf)
   {
-    while (i >= 0 && keys[i].key > word.key)
+    while (i >= 0 && keys[i].key > word->key)
     {
       keys[i + 1] = keys[i];
       i--;
-      if (word.key == keys[i].key)
+      if (word->key == keys[i].key)
       {
-        
-        keys[i].description.push_back(word.description[0]);
-        keys[i].pages.push_back(word.pages[0]);
+
+        keys[i].description->push_back(word->description->at(0));
+        keys[i].pages->push_back(word->pages->at(0));
         return;
       }
     }
-    if (word.key == keys[i].key)
+    if (word->key == keys[i].key)
       {
         
-        keys[i].description.push_back(word.description[0]);
-        keys[i].pages.push_back(word.pages[0]);
+        keys[i].description->push_back(word->description->at(0));
+        keys[i].pages->push_back(word->pages->at(0));
         return;
       }
-    keys[i + 1] = word;
+    keys[i + 1] = *word;
     numKeys++;
   }
   else
   {
-    while (i >= 0 && keys[i].key > word.key)
+    while (i >= 0 && keys[i].key > word->key)
       i--;
 
     if (children[i + 1]->numKeys == 2 * minDegree - 1)
@@ -207,7 +148,7 @@ void BTreeNode::insertNonFull(Word word)
 
       splitChild(i + 1, children[i + 1]);
 
-      if (keys[i + 1].key < word.key)
+      if (keys[i + 1].key < word->key)
         i++;
     }
     children[i + 1]->insertNonFull(word);
@@ -242,7 +183,7 @@ void BTreeNode::splitChild(int i, BTreeNode *child)
   numKeys++;
 }
 
-Word BTreeNode::search(string key)
+Word* BTreeNode::search(string *key)
 {
   int i = 0;
   while (i < numKeys && key > keys[i].key)
@@ -252,12 +193,13 @@ Word BTreeNode::search(string key)
 
   if (i < numKeys && key == keys[i].key)
   {
-    return keys[i];
+    return &keys[i];
   }
   else if (isLeaf)
   {
-    Word notFound;
-    notFound.key = "Key not found";
+    Word* notFound = new Word();
+    string* noFound = new string("Key not found") ;
+    notFound->key = noFound;
     return notFound;
   }
   else
@@ -266,12 +208,12 @@ Word BTreeNode::search(string key)
   }
 }
 
-void BTree::insert(Word word)
+void BTree::insert(Word *word)
 {
   if (root == NULL)
   {
     root = new BTreeNode(minDegree, true);
-    root->keys[0] = word;
+    root->keys[0] = *word;
     root->numKeys = 1;
   }
   else
@@ -283,7 +225,7 @@ void BTree::insert(Word word)
       s->splitChild(0, root);
 
       int i = 0;
-      if (s->keys[0].key < word.key)
+      if (s->keys[0].key < word->key)
         i++;
       s->children[i]->insertNonFull(word);
       root = s;
@@ -295,151 +237,48 @@ void BTree::insert(Word word)
   }
 }
 
-// class PruebaBtree
-// {
-// private:
-//   BTree WordParragraphBTree;    
-// public:
-// PruebaBtree()
-// {
-// }
+class PruebaBtree
+{
+private:
+  BTree* WordParragraphBTree;    
+public:
 
-// void generateBtree()
-// {
-//   WordParragraphBTree = BTree(3);
-//   Word word1 = {"apple", {"fruit"}, {1, 2, 3}};
-//   Word word2 = {"orange", {"fruit"}, {4, 5, 6}};
-//   Word word3 = {"banana", {"fruit"}, {7, 8, 9}};
-//   Word word33 = {"lemon", {"fruta"}, {4}};
-//   vector<Word> words;
+PruebaBtree()
+{
+  WordParragraphBTree = new BTree();
+}
 
-//   for(int i = 0; i < 1000 ; i++ )
-//   {
-//     Word word;
-//     word.key = "word" + to_string(i);
-    
-//     word.description.push_back("descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription" + to_string(i));
-//     cout<<word.description.at(0)<<endl<<endl;
-//     word.pages.push_back(i);
-//     words.push_back(word);
-//     if(i % 5 == 0 )
-//     {
-//       Word word;
-//       word.key = "people";
-//       word.description.push_back("description" + to_string(i));
-//       word.pages.push_back(i);
-//       words.push_back(word);
-//     }
-//   }
-//   for(int i = 0; i < words.size(); i++ )
-//   {
-//     WordParragraphBTree.insert(words[i]);
-//   }
-// }
-// void printBT()
-// {
-//   WordParragraphBTree.traverse();
-// }
-// };
+void generateBtree()
+{
+  for(int i = 0; i < 5000; i++ )
+  {
+    string* key = new string("key" + to_string(i));
+    string* description = new string("description" + to_string(i));
+    int* page = new int(i);
+    Word* word = new Word();
+    word->setWord(*key, *description, *page);
+    WordParragraphBTree->insert(word);
+  }
+  
+}
+void printBT()
+{
+  WordParragraphBTree->traverse();
+}
+
+BTree* getBTree()
+{
+  return WordParragraphBTree;
+}
+};
 
 // int main()
 // {
-//   PruebaBtree prueba = PruebaBtree();
+//   PruebaBtree prueba;
+
 //   prueba.generateBtree();
+//   prueba.getBTree()->traverse();
 
-//   // Word word1 = {"apple", {"fruit"}, {1, 2, 3}};
-//   // Word word2 = {"orange", {"fruit"}, {4, 5, 6}};
-//   // Word word3 = {"banana", {"fruit"}, {7, 8, 9}};
-//   // Word word33 = {"lemon", {"fruta"}, {4}};
-//   // vector<Word> words;
-
-//   // for(int i = 0; i < 1000 ; i++ )
-//   // {
-//   //   Word word;
-//   //   word.key = "word" + to_string(i);
-//   //   word.description.push_back("descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription" + to_string(i));
-//   //   word.pages.push_back(i);
-//   //   words.push_back(word);
-//   //   if(i % 5 == 0 )
-//   //   {
-//   //     Word word;
-//   //     word.key = "people";
-//   //     word.description.push_back("description" + to_string(i));
-//   //     word.pages.push_back(i);
-//   //     words.push_back(word);
-//   //   }
-//   // }
-//   // for(int i = 0; i < 1000 ; i++ )
-//   // {
-//   //   Word word;
-//   //   word.key = "palabra" + to_string(i);
-//   //   word.description.push_back("description" + to_string(i));
-//   //   word.pages.push_back(i);
-//   //   words.push_back(word);
-  //   if(i % 5 == 0 )
-  //   {
-  //     Word word;
-  //     word.key = "people";
-  //     word.description.push_back("description" + to_string(i));
-  //     word.pages.push_back(i);
-  //     words.push_back(word);
-  //   }
-  //   if(i % 8 == 0 )
-  //   {
-  //     Word word;
-  //     word.key = "people";
-  //     word.description.push_back("description" + to_string(i));
-  //     word.pages.push_back(i);
-  //     words.push_back(word);
-  //   }
-  // }
-  // for(int i = 0; i < 1000 ; i++ )
-  // {
-  //   Word word;
-  //   word.key = "people";
-  //   word.description.push_back("descriptiom" + to_string(i));
-  //   word.pages.push_back(i);
-  //   words.push_back(word);
-  // }
-
-  // for(int i = 0; i < words.size(); i++ )
-  // {
-  //   t.insert(words[i]);
-  // }
-
-  // t.insert(word1);
-  // t.insert(word2);
-  // t.insert(word3);
-  // t.insert(word33);
-
-
-
-  // cout << endl;
-
-  // string searchKey = "apple";
-  // Word result = t.search(searchKey);
-
-  // if (result.key != "Key not found")
-  // {
-  //   cout << "Key found: " << result.key << endl;
-  //   cout << "Description: ";
-  //   for (const auto &desc : result.description)
-  //   {
-  //     cout << desc << " ";
-  //   }
-  //   cout << endl;
-  //   cout << "Pages: ";
-  //   for (const auto &page : result.pages)
-  //   {
-  //     cout << page << " ";
-  //   }
-  //   cout << endl;
-  // }
-  // else
-  // {
-  //   cout << "Key not found" << endl;
-  // }
-
-  // return 0;
+//   return 0;
 // }
 #endif
