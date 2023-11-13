@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Input</title>
+</head>
+<body>
+    <form id="phraseForm">
+        <label for="phrase">Enter a phrase:</label>
+        <input type="text" id="phrase" name="phrase" required>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var phrase = document.getElementById("phrase").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:8080/", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify({ "phrase": phrase }));
+        }
+    </script>
+</body>
+</html>
