@@ -1,10 +1,8 @@
-#ifndef _FBTREE_
-#define _FBTREE_ 1
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
-int minDegree = 3;
+
 struct Word
 {
   string *key;
@@ -32,7 +30,7 @@ public:
   void insertNonFull(Word* word);
   void splitChild(int i, BTreeNode *child);
   void traverse();
-  Word *search(string key);
+  BTreeNode *search(Word* word);
 
   friend class BTree;
 };
@@ -42,13 +40,6 @@ class BTree {
   int minDegree;
 
 public:
-
-  BTree() 
-  {
-    root = nullptr;
-    minDegree = 3;
-  }
-
   BTree(int minDeg) {
     root = nullptr;
     minDegree = minDeg;
@@ -59,13 +50,8 @@ public:
       root->traverse();
   }
 
-  Word *search(string word) {
+  BTreeNode *search(Word* word) {
     return (root == nullptr) ? nullptr : root->search(word);
-  }
-
-  bool isEmpty()
-  {
-    return root == nullptr;
   }
 
   void insert(Word* word);
@@ -93,13 +79,13 @@ void BTreeNode::traverse() {
     children[index]->traverse();
 }
 
-Word *BTreeNode::search(string word) {
+BTreeNode *BTreeNode::search(Word* word) {
   int index = 0;
-  while (index < numKeys && word > *keys[index].key)
+  while (index < numKeys && *word->key > *keys[index].key)
     index++;
 
-  if (*keys[index].key == word)
-    return this->keys;
+  if (*keys[index].key == *word->key)
+    return this;
 
   if (isLeaf)
     return nullptr;
@@ -188,7 +174,7 @@ void BTreeNode::splitChild(int i, BTreeNode *child) {
   numKeys++;
 }
 
-/*
+int main() {
   BTree *tree = new BTree(3);
 
   Word* word1 = new Word(); 
@@ -196,6 +182,12 @@ void BTreeNode::splitChild(int i, BTreeNode *child) {
   string *description1 = new string("aaaa");
   int *page1 = new int(3);
   word1->setWord(key1, description1, page1);
+
+  Word* word8 = new Word();
+  string* word8key = new string("aa");
+  string* word8description = new string("description6");
+  int* word8page = new int(1);
+  word8->setWord(word8key, word8description, word8page);
 
   Word* word2 = new Word();
   string* word2key = new string("fey");
@@ -228,14 +220,21 @@ void BTreeNode::splitChild(int i, BTreeNode *child) {
   int* word6page = new int(1);
   word6->setWord(word6key, word6description, word6page);
 
+  Word* word7 = new Word();
+  string* word7key = new string("aa");
+  string* word7description = new string("description6");
+  int* word7page = new int(1);
+  word7->setWord(word7key, word7description, word7page);
+
+
   tree->insert(word1);
   tree->insert(word2);
   tree->insert(word3);
   tree->insert(word4);
   tree->insert(word5);
   tree->insert(word6);
+  tree->insert(word7);
   tree->traverse();
 
   return 0;
-}*/
-#endif
+}

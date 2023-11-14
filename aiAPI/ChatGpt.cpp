@@ -35,7 +35,7 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* response
 // Construct a POST request to the chat model endpoint and process the response.
 string getCompletion(const string& prompt) {
     const string& model = "gpt-3.5-turbo";
-    string apiKey = "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"; // add your API key, the app will not work without it
+    string apiKey = "LA API"; // add your API key, the app will not work without it
     string baseUrl = "https://api.openai.com/v1/chat/completions";
     string response;
     CURL* curl = curl_easy_init();

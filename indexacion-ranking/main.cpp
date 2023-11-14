@@ -10,8 +10,8 @@ using namespace std;
 int main()
 {
 
-    // BookHasher bookHasher = BookHasher();
-    // bookHasher.hashBooksInFolder("../bookDatabase");
+    BookHasher bookHasher = BookHasher();
+    bookHasher.hashBooksInFolder("../bookDatabase");
 
     // vector<string> search;
 
@@ -53,34 +53,36 @@ int main()
 
 
 
-    cout<<"inicio"<<endl; 
-    Book* book = new Book();
-    string path = "../bookDatabase/Ulysses by James Joyce.txt";
-    book->loadBtree(path);
-    book->getBtree()->traverse();
+    //cout<<"inicio"<<endl; 
+    //Book* book = new Book();
+    //string path = "../bookDatabase/A Christmas Carol in Prose; Being a Ghost Story of Christmas by Charles Dickens.txt";
+    //book->loadBtree(path);
+    //book->getBtree()->traverse();
+    //bool see = book->getBtree()->isEmpty();
+    //cout << (see==false) << endl;
 
-  Word* result = book->getBtree()->search(new string("archive"));
+  // Word* result = book->getBtree()->search("gutenbergtm");
 
-  if (*result->key != "Key not found")
-  {
-    cout << "Key found: " << result->key << endl;
-    cout << "Description: ";
-    // for (string*desc : result->description)
-    // {
-    //   cout << desc << " ";
-    // }
-    // cout << endl;
-    // cout << "Pages: ";
-    // for (const auto &page : result->pages)
-    // {
-    //   cout << page << " ";
-    // }
-    cout << endl;
-  }
-  else
-  {
-    cout << "Key not found" << endl;
-  }
+  // if (*result->key != "Key not found")
+  // {
+  //   cout << "Key found: " << result->key << endl;
+  //   cout << "Description: ";
+  //   // for (string*desc : result->description)
+  //   // {
+  //   //   cout << desc << " ";
+  //   // }
+  //   // cout << endl;
+  //   // cout << "Pages: ";
+  //   // for (const auto &page : result->pages)
+  //   // {
+  //   //   cout << page << " ";
+  //   // }
+  //   cout << endl;
+  // }
+  // else
+  // {
+  //   cout << *result->key << endl;
+  // }
 
   return 0;
 };

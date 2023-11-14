@@ -9,7 +9,7 @@
 #include "../indexacion-ranking/Library.h"
 #include "../indexacion-ranking/BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
-#include "ParagraphRating.h"//TODO: check the directory
+#include "ParagraphRating.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ class BookParragraphFinder : public BookOperations<Parragraph>
 {
 private:
     vector<Book> *top10Books;
-    vector<Parragraph*> *top30Parragraphs;//TODO: check the pointers
+    vector<Parragraph*> *top30Parragraphs;
 
 public:
     BookParragraphFinder(){};
@@ -39,7 +39,7 @@ public:
 
                 cout << *lookFor << endl;
 
-                Word* word = book.getBtree()->search(lookFor);
+                Word* word = book.getBtree()->search(*lookFor);
 
                 cout << "se encontro la palabra: " << *word->key << endl<< endl;
                 if (*word->key != "Key not found")
@@ -47,17 +47,17 @@ public:
                     for (int k = 0; k < word->description->size(); k++)
                     {
                         cout << *word->description->at(k) << endl;
-                        int* rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
-                        string* title = new string(book.getTitle());
-                        string* author = new string(book.getAuthor());
-                        string* filePath = new string(book.getFilePath());
+                        // int* rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
+                        // string* title = new string(book.getTitle());
+                        // string* author = new string(book.getAuthor());
+                        // string* filePath = new string(book.getFilePath());
 
-                        Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
-                        delete rating;
-                        delete title;
-                        delete author;
-                        delete filePath;
-                        book.addToMultiSetAVL(parra);//TODO: check the pointers 
+                        // Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        // delete rating;
+                        // delete title;
+                        // delete author;
+                        // delete filePath;
+                        // book.addToMultiSetAVL(parra);//TODO: check the pointers 
                     }
                 }
                 delete lookFor;

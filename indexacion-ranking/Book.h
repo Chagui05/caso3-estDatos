@@ -33,6 +33,7 @@ public:
         this->title = title;
         this->description = description;
         this->author = author;
+        
     }
 
     void buildBook(string &filePath)
