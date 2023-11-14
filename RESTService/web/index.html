@@ -17,9 +17,10 @@
             var phrase = document.getElementById("phrase").value;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "http://localhost:8080/", true);
-            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xhr.send(JSON.stringify({ "phrase": phrase }));
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("phrase=" + encodeURIComponent(phrase));
         }
     </script>
+    
 </body>
 </html>

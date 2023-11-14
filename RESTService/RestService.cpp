@@ -1,66 +1,34 @@
-#include <cpprest/http_listener.h>
-#include <cpprest/json.h>
-#include <cpprest/http_client.h>
-#include <cpprest/uri.h>
-#include <cpprest/asyncrt_utils.h>
+#include "httplib.h"
+#include <iostream>
+#include <string>
 
-using namespace web;
-using namespace web::http;
-using namespace web::http::experimental::listener;
-using namespace web::http::client;
+void handle_post(const httplib::Request& req, httplib::Response& res) {
+    if (req.has_param("phrase")) {
+        std::string phrase = req.get_param_value("phrase");
+        std::cout << "Received phrase: " << phrase << std::endl;
+        //!Agregar procesamiento de frase
 
-http_listener listener("http://localhost:8080");
-
-void handle_post(http_request request)
-{
-    auto response = json::value::object();
-    response[U("status")] = json::value::string(U("success"));
-
-    // Get the content of the request
-
-    request.extract_json().then([&response, &request](json::value body) {
-        // Get the value of the textbox
-        auto textbox_value = body[U("textbox")].as_string();
-
-        // Convert narrow string to wide string
-        std::wstring wide_textbox_value(textbox_value.begin(), textbox_value.end());
-
-        // Print the value of the textbox to the console
-        std::wcout << L"Textbox value: " << wide_textbox_value << std::endl;
-
-        // You can send a response back to the client if needed
-        // response[U("received")] = json::value::string(textbox_value);
-        // request.reply(status_codes::OK, response);
-    });
-
-    request.reply(status_codes::OK, response);
+        // Send a response
+        res.set_content("Phrase received: " + phrase, "text/plain");
+    } else {
+        res.set_content("Invalid request", "text/plain");
+    }
 }
 
-int main()
-{
-    listener.support(methods::POST, handle_post);
+int main() {
+    httplib::Server svr;
 
-    try
-    {
-        listener.open().wait();
-        std::wcout << L"Listening for requests at: " << listener.uri().to_string().c_str() << std::endl;
+    // Serve the static files
+    svr.set_mount_point("/", "web");
 
-    // Uncomment the following lines if you want to open a web page to interact with your service
-    utility::string_t url = U("http://localhost:8080");
-    uri_builder uri(url);
-    uri.append_path(U("index.html"));
+    // Handle POST requests to / endpoint
+    svr.Post("/", [](const httplib::Request& req, httplib::Response& res) {
+        handle_post(req, res);
+    });
 
-    http_client client(uri.to_uri());
-    client.request(web::http::methods::GET).then([](web::http::http_response response) {
-        return response;
-    }).wait();
+    std::cout << "Server listening on http://localhost:8080" << std::endl;
 
-        while (true);
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    svr.listen("localhost", 8080);
 
     return 0;
 }
