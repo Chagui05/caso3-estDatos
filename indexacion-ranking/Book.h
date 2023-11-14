@@ -139,6 +139,10 @@ public:
 
             if (word.length() > 4)
             {
+                if(*wordObj->key == "alexandre")
+                {
+                    cout<<*wordObj->description->at(0)<<endl;
+                }
                 WordParragraphBTree->insert(wordObj);
             }
         }

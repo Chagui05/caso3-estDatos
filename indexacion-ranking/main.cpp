@@ -13,40 +13,40 @@ int main()
     BookHasher bookHasher = BookHasher();
     bookHasher.hashBooksInFolder("../bookDatabase");
 
-    // vector<string> search;
+    vector<string> search;
 
-    // search.push_back("Musketeers");
-    // search.push_back("Alexandre");
-    // search.push_back("fourth");
-    // search.push_back("hello");
-    // search.push_back("magic");
-    // search.push_back("attempt");
+     search.push_back("Musketeers");
+     search.push_back("Alexandre");
+     search.push_back("fourth");
+     search.push_back("hello");
+     search.push_back("magic");
+     search.push_back("attempt");
 
-    // cout <<endl<<endl;
-    // cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
-    // cout <<endl<<endl;
+     cout <<endl<<endl;
+     cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
+     cout <<endl<<endl;
 
-    // bookHasher.getRankedMultiSetAVL(search);
+     bookHasher.getRankedMultiSetAVL(search);
 
-    // // cout <<endl<<endl;
-    // // cout << "BOOKS RANKED" << endl;
-    // // int num = 3;
-    // cout << "Top 10: " << endl;
+    
+    cout << "BOOKS RANKED" << endl;
+    int num = 3;
+   cout << "Top 10: " << endl;
 
-    // // bookHasher.setTopAmountBooks(num);
+    bookHasher.setTopAmountBooks(num);
 
-    // vector<Book>* top10 = bookHasher.getTop10Books();
+    vector<Book>* top10 = bookHasher.getTop10Books();
 
-    // for(int i = 0; i < top10->size(); i++)
-    // {
-    //   cout<<i+1<<". ";
-    //   cout << top10->at(i).getTitle() << endl;
+    for(int i = 0; i < top10->size(); i++)
+     {
+       cout<<i+1<<". ";
+       cout << top10->at(i).getTitle() << endl;
       
-    // }
-
-    // cout <<"busqueda de parrafos"<<endl<<endl;
-    // BookParragraphFinder finder = BookParragraphFinder(top10);
-    // finder.findAppearences();
+     }
+    cout<<endl<<endl;
+    cout <<"busqueda de parrafos"<<endl<<endl;
+   BookParragraphFinder finder = BookParragraphFinder(top10);
+   finder.findAppearences();
 
     
 

@@ -17,7 +17,7 @@ class BookParragraphFinder : public BookOperations<Parragraph>
 {
 private:
     vector<Book> *top10Books;
-    vector<Parragraph*> *top30Parragraphs;
+    vector<Parragraph *> *top30Parragraphs;
 
 public:
     BookParragraphFinder(){};
@@ -35,32 +35,31 @@ public:
             cout << book.getTitle() << endl;
             for (int j = 0; j < book.getWordMatches().size(); j++)
             {
-                string* lookFor = new string(book.getWordMatches().at(j));
+                string lookFor = book.getWordMatches().at(j);
+                cout << "buscando " << lookFor << endl;
 
-                cout << *lookFor << endl;
-
-                Word* word = book.getBtree()->search(*lookFor);
-
-                cout << "se encontro la palabra: " << *word->key << endl<< endl;
-                if (*word->key != "Key not found")
+                Word *word = book.getBtree()->search(lookFor)->getKey(lookFor);
+                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl
+                     << endl;
+                if (word != nullptr)
                 {
                     for (int k = 0; k < word->description->size(); k++)
                     {
-                        cout << *word->description->at(k) << endl;
-                        // int* rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
-                        // string* title = new string(book.getTitle());
-                        // string* author = new string(book.getAuthor());
-                        // string* filePath = new string(book.getFilePath());
+                        cout << (word->description->at(k) == nullptr) << endl;
+                        cout << "page: " << *(word->pages->at(k)) << endl;
+                        int *rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
+                        string *title = new string(book.getTitle());
+                        string *author = new string(book.getAuthor());
+                        string *filePath = new string(book.getFilePath());
 
-                        // Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
-                        // delete rating;
-                        // delete title;
-                        // delete author;
-                        // delete filePath;
-                        // book.addToMultiSetAVL(parra);//TODO: check the pointers 
+                        Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        delete rating;
+                        delete title;
+                        delete author;
+                        delete filePath;
+                        book.addToMultiSetAVL(parra);//TODO: check the pointers
                     }
                 }
-                delete lookFor;
             }
             cout << endl;
         }
@@ -70,10 +69,10 @@ public:
     {
         for (int i = 0; i < top10Books->size(); i++)
         {
-            vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked().topVector();//TODO: check the pointers
+            vector<Parragraph *> *parragraphs = top10Books->at(i).getAllParragraphsRanked().topVector(); // TODO: check the pointers
             for (int j = 0; j < 3; j++)
             {
-                top30Parragraphs->push_back(parragraphs->at(j));//TODO: check the pointers
+                top30Parragraphs->push_back(parragraphs->at(j)); // TODO: check the pointers
             }
         }
     }

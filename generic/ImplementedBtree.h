@@ -20,7 +20,8 @@ struct Word
   }
 };
 
-class BTreeNode {
+class BTreeNode
+{
   Word *keys;
   int minDegree;
   BTreeNode **children;
@@ -29,37 +30,53 @@ class BTreeNode {
 
 public:
   BTreeNode(int minDeg, bool leafNode);
-  void insertNonFull(Word* word);
+  void insertNonFull(Word *word);
   void splitChild(int i, BTreeNode *child);
   void traverse();
-  Word *search(string key);
+  BTreeNode *search(string key);
+
+  Word *getKey(string key)
+  {
+    int index = numKeys;
+    for (int i = 0; i < index; ++i)
+    {
+      if (*keys[i].key == key)
+      {
+        return &keys[i];
+      }
+    }
+    return nullptr;
+  }
 
   friend class BTree;
 };
 
-class BTree {
+class BTree
+{
   BTreeNode *root;
   int minDegree;
 
 public:
-
-  BTree() 
+  BTree()
   {
     root = nullptr;
     minDegree = 3;
   }
 
-  BTree(int minDeg) {
+  BTree(int minDeg)
+  {
     root = nullptr;
     minDegree = minDeg;
   }
 
-  void traverse() {
+  void traverse()
+  {
     if (root != nullptr)
       root->traverse();
   }
 
-  Word *search(string word) {
+  BTreeNode *search(string word)
+  {
     return (root == nullptr) ? nullptr : root->search(word);
   }
 
@@ -68,10 +85,11 @@ public:
     return root == nullptr;
   }
 
-  void insert(Word* word);
+  void insert(Word *word);
 };
 
-  BTreeNode::BTreeNode(int minDeg, bool leafNode) {
+BTreeNode::BTreeNode(int minDeg, bool leafNode)
+{
   minDegree = minDeg;
   isLeaf = leafNode;
 
@@ -81,9 +99,11 @@ public:
   numKeys = 0;
 }
 
-void BTreeNode::traverse() {
+void BTreeNode::traverse()
+{
   int index;
-  for (index = 0; index < numKeys; index++) {
+  for (index = 0; index < numKeys; index++)
+  {
     if (!isLeaf)
       children[index]->traverse();
     cout << " " << *keys[index].key;
@@ -93,27 +113,40 @@ void BTreeNode::traverse() {
     children[index]->traverse();
 }
 
-Word *BTreeNode::search(string word) {
+BTreeNode *BTreeNode::search(string word)
+{
   int index = 0;
   while (index < numKeys && word > *keys[index].key)
     index++;
 
+  if (keys[index].key == nullptr)
+  {
+    return children[index]->search(word);
+  } 
+
   if (*keys[index].key == word)
-    return this->keys;
-
+  {
+    return this;
+  }
   if (isLeaf)
+  {
     return nullptr;
-
+  }
   return children[index]->search(word);
 }
 
-void BTree::insert(Word* word) {
-  if (root == nullptr) {
+void BTree::insert(Word *word)
+{
+  if (root == nullptr)
+  {
     root = new BTreeNode(minDegree, true);
     root->keys[0] = *word;
     root->numKeys = 1;
-  } else {
-    if (root->numKeys == 2 * minDegree - 1) {
+  }
+  else
+  {
+    if (root->numKeys == 2 * minDegree - 1)
+    {
       BTreeNode *newRoot = new BTreeNode(minDegree, false);
 
       newRoot->children[0] = root;
@@ -121,39 +154,49 @@ void BTree::insert(Word* word) {
       newRoot->splitChild(0, root);
 
       int index = 0;
-      if (*newRoot->keys[0].key < *word->key)  
+      if (*newRoot->keys[0].key < *word->key)
         index++;
       newRoot->children[index]->insertNonFull(word);
 
       root = newRoot;
-    } else
+    }
+    else
       root->insertNonFull(word);
   }
 }
 
-void BTreeNode::insertNonFull(Word* word) {
+void BTreeNode::insertNonFull(Word *word)
+{
   int index = numKeys - 1;
 
-  if (isLeaf) {
-    while (index >= 0 && *keys[index].key > *word->key) {
+  if (isLeaf)
+  {
+    while (index >= 0 && *keys[index].key > *word->key)
+    {
       keys[index + 1] = keys[index];
       index--;
     }
 
-    if (index >= 0 && *keys[index].key == *word->key) {
+    if (index >= 0 && *keys[index].key == *word->key)
+    {
       keys[index].description->push_back(word->description->at(0));
       keys[index].pages->push_back(word->pages->at(0));
-    } else {
+    }
+    else
+    {
       // Insert the new word at the correct position
       keys[index + 1] = *word;
       numKeys = numKeys + 1;
     }
-  } else {
+  }
+  else
+  {
     while (index >= 0 && *keys[index].key > *word->key)
     {
       index--;
     }
-    if (children[index + 1]->numKeys == 2 * minDegree - 1) {
+    if (children[index + 1]->numKeys == 2 * minDegree - 1)
+    {
       splitChild(index + 1, children[index + 1]);
       if (*keys[index + 1].key < *word->key)
         index++;
@@ -162,14 +205,16 @@ void BTreeNode::insertNonFull(Word* word) {
   }
 }
 
-void BTreeNode::splitChild(int i, BTreeNode *child) {
+void BTreeNode::splitChild(int i, BTreeNode *child)
+{
   BTreeNode *newNode = new BTreeNode(child->minDegree, child->isLeaf);
   newNode->numKeys = minDegree - 1;
 
   for (int j = 0; j < minDegree - 1; j++)
     newNode->keys[j] = child->keys[j + minDegree];
 
-  if (!child->isLeaf) {
+  if (!child->isLeaf)
+  {
     for (int j = 0; j < minDegree; j++)
       newNode->children[j] = child->children[j + minDegree];
   }
@@ -191,7 +236,7 @@ void BTreeNode::splitChild(int i, BTreeNode *child) {
 /*
   BTree *tree = new BTree(3);
 
-  Word* word1 = new Word(); 
+  Word* word1 = new Word();
   string *key1 = new string("zzzz");
   string *description1 = new string("aaaa");
   int *page1 = new int(3);
