@@ -4,7 +4,15 @@
 #include <algorithm>
 #include <climits>
 
+using namespace std;
+
 int calculateRating(const std::string& paragraph, const std::vector<std::string>& words) {
+
+    cout<< paragraph<< endl;
+    for(string s: words){
+        cout<< s<< endl;
+    }
+    cout<< endl<< endl;
     // Tokenize the paragraph into words
     std::vector<std::string> paragraphWords;
     size_t startPos = 0;
@@ -50,11 +58,13 @@ int calculateRating(const std::string& paragraph, const std::vector<std::string>
 }
 
 // int main() {
-//     std::string paragraph = "THe beast of the night returns, as the beast arises, the night does so, the night is young beast beast beast beast night night hello hello hello beast night";
-//     std::vector<std::string> wordsToLookFor = {"beast", "night"};
+//     string paragraph = "THe beast of the night returns, as the beast arises, the night does so, the night is young beast beast beast beast night night hello hello hello beast night";
+//     vector<string> wordsToLookFor = {"fourth", "attempt"};
+//     string parra = "Our visitor gave a rather shamefaced laugh. �Shillings have not been so plentiful with me as they once were,� he remarked. �I had no doubt that the gang of roughs who assaulted me had carried off both my hat and the bird. I did not care to spend more money in a hopeless attempt at";
 
 //     int rating = calculateRating(paragraph, wordsToLookFor);
-//     std::cout << "Rating: " << rating << std::endl;
+//     int rate = calculateRating(parra, wordsToLookFor);
+//     std::cout << "Rating: " << rate << std::endl;
 
 //     return 0;
 // }

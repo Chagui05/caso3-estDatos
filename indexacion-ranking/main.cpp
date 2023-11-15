@@ -47,6 +47,13 @@ int main()
     cout <<"busqueda de parrafos"<<endl<<endl;
    BookParragraphFinder finder = BookParragraphFinder(top10);
    finder.findAppearences();
+   finder.setTop30Parragraphs();
+  vector<Parragraph*>* top30 = finder.getTop30Parragraphs();
+
+  for(int i = 0; i < top30->size(); i++)
+  {
+    cout << i<< endl;
+  }
 
     
 

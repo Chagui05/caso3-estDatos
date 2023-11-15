@@ -33,6 +33,11 @@ public:
     {
         return *rating;
     }
+
+    string* getContent()
+    {
+        return content;
+    }
     /*
     string feeling
     Image image 

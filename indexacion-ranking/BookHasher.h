@@ -45,13 +45,10 @@ public:
             for (string s : search)
             {
                 toLowerCase(s);
-                cout<<"Buscando: "<<s<<endl;
                 if (wordIndex.find(s) != wordIndex.end())
                 {
                     string title = allBooks->at(i).getTitle();
                     allBooks->at(i).addWordMatch(s);
-                    cout<<"Apariciones: "<<wordIndex[s].size()<<endl;
-                    cout<<endl;
                     appearances += wordIndex[s].size();
                 }
             }

@@ -22,12 +22,15 @@ private:
     string description;
     string author;
     string filePath;
-    MultisetAVLTree<Parragraph> allParragraphsRanked;
+    MultisetAVLTree<Parragraph>* allParragraphsRanked;
     vector<Parragraph> top3Parragraphs;
     vector<string> wordMatches;
 
 public:
-    Book() {}
+    Book() 
+    {
+        allParragraphsRanked = new MultisetAVLTree<Parragraph>();
+    }
     Book(string title, string description, string author)
     {
         this->title = title;
@@ -134,17 +137,13 @@ public:
             toLowerCase(word);
             Word* wordObj = new Word();
             wordObj->key = new string(word);
-            wordObj->pages->push_back(page);
-            wordObj->description->push_back(pParra);
-
+            wordObj->pages->push_back(new int(*page));  // Create a new integer, not just a pointer
+            wordObj->description->push_back(new string(*pParra));  // Create a new string, not just a pointer
             if (word.length() > 4)
             {
-                if(*wordObj->key == "alexandre")
-                {
-                    cout<<*wordObj->description->at(0)<<endl;
-                }
                 WordParragraphBTree->insert(wordObj);
             }
+            delete wordObj;
         }
     }
 
@@ -201,10 +200,11 @@ public:
 
     void addToMultiSetAVL(Parragraph parragraph)
     {
-        Parragraph* parr = new Parragraph(parragraph);
-        allParragraphsRanked.insert(parr, parragraph.getRating());
+        Parragraph *parra = new Parragraph(parragraph);
+        allParragraphsRanked->insert(parra, 2);
     }
-    MultisetAVLTree<Parragraph> getAllParragraphsRanked()
+
+    MultisetAVLTree<Parragraph>* getAllParragraphsRanked()
     {
         return allParragraphsRanked;
     }

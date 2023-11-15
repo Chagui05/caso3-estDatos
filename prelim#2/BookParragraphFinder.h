@@ -20,11 +20,15 @@ private:
     vector<Parragraph *> *top30Parragraphs;
 
 public:
-    BookParragraphFinder(){};
+    BookParragraphFinder()
+    {
+        top30Parragraphs = new vector<Parragraph *>();
+    };
 
     BookParragraphFinder(vector<Book> *top10)
     {
         top10Books = top10;
+        top30Parragraphs = new vector<Parragraph *>();
     }
 
     void findAppearences()
@@ -39,25 +43,26 @@ public:
                 cout << "buscando " << lookFor << endl;
 
                 Word *word = book.getBtree()->search(lookFor)->getKey(lookFor);
-                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl
-                     << endl;
+                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl;
                 if (word != nullptr)
                 {
                     for (int k = 0; k < word->description->size(); k++)
                     {
-                        cout << (word->description->at(k) == nullptr) << endl;
-                        cout << "page: " << *(word->pages->at(k)) << endl;
+                        // cout<<*word->key << " :word"<< "description: " <<*word->description->at(k) << endl;//TODO: esta imprimiendo el mismos para todos
+                        
+                        
                         int *rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
+                        cout << "rating: " << *rating << endl;
                         string *title = new string(book.getTitle());
                         string *author = new string(book.getAuthor());
                         string *filePath = new string(book.getFilePath());
 
                         Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        book.addToMultiSetAVL(parra);//TODO: check the pointers
                         delete rating;
                         delete title;
                         delete author;
                         delete filePath;
-                        book.addToMultiSetAVL(parra);//TODO: check the pointers
                     }
                 }
             }
@@ -67,14 +72,24 @@ public:
 
     void setTop30Parragraphs()
     {
+        cout << "TOP 30 PARRAGRAPHS" << endl;
+
+
         for (int i = 0; i < top10Books->size(); i++)
         {
-            vector<Parragraph *> *parragraphs = top10Books->at(i).getAllParragraphsRanked().topVector(); // TODO: check the pointers
+            vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked()->topVector(); 
             for (int j = 0; j < 3; j++)
             {
                 top30Parragraphs->push_back(parragraphs->at(j)); // TODO: check the pointers
             }
+            delete parragraphs;
         }
     }
+
+    vector<Parragraph*>* getTop30Parragraphs()
+    {
+        return top30Parragraphs;
+    }   
+
 };
 #endif

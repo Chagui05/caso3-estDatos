@@ -122,7 +122,7 @@ BTreeNode *BTreeNode::search(string word)
   if (keys[index].key == nullptr)
   {
     return children[index]->search(word);
-  } 
+  }
 
   if (*keys[index].key == word)
   {
@@ -179,7 +179,7 @@ void BTreeNode::insertNonFull(Word *word)
 
     if (index >= 0 && *keys[index].key == *word->key)
     {
-      keys[index].description->push_back(word->description->at(0));
+      keys[index].description->push_back(word->description->at(0)); // TODO:poner un for para ver como va contenido del vector
       keys[index].pages->push_back(word->pages->at(0));
     }
     else
