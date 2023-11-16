@@ -147,8 +147,6 @@ public:
     {
         vector<T *> *top = new vector<T *>();
         reverseInorderVector(root, top);
-        std::cout << std::endl;
-
         return top;
     }
 };

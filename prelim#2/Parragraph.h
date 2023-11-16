@@ -38,6 +38,10 @@ public:
     {
         return content;
     }
+    string* getBookTitle()
+    {
+        return bookTitle;
+    }
     /*
     string feeling
     Image image 

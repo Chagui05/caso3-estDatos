@@ -22,7 +22,6 @@ private:
 public:
     BookParragraphFinder()
     {
-        top30Parragraphs = new vector<Parragraph *>();
     };
 
     BookParragraphFinder(vector<Book> *top10)
@@ -48,21 +47,17 @@ public:
                 {
                     for (int k = 0; k < word->description->size(); k++)
                     {
-                        // cout<<*word->key << " :word"<< "description: " <<*word->description->at(k) << endl;//TODO: esta imprimiendo el mismos para todos
-                        
-                        
                         int *rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
                         cout << "rating: " << *rating << endl;
                         string *title = new string(book.getTitle());
                         string *author = new string(book.getAuthor());
                         string *filePath = new string(book.getFilePath());
-
-                        Parragraph parra = Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        Parragraph* parra = new Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
                         book.addToMultiSetAVL(parra);//TODO: check the pointers
-                        delete rating;
-                        delete title;
-                        delete author;
-                        delete filePath;
+                        // delete rating;
+                        // delete title;
+                        // delete author;
+                        // delete filePath;
                     }
                 }
             }
@@ -73,16 +68,21 @@ public:
     void setTop30Parragraphs()
     {
         cout << "TOP 30 PARRAGRAPHS" << endl;
-
-
+        top30Parragraphs = new vector<Parragraph *>();
         for (int i = 0; i < top10Books->size(); i++)
         {
+            
             vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked()->topVector(); 
             for (int j = 0; j < 3; j++)
             {
-                top30Parragraphs->push_back(parragraphs->at(j)); // TODO: check the pointers
+                // cout << *parragraphs->at(j)->getBookTitle() << endl;
+                // cout << *parragraphs->at(j)->getContent()<< endl;
+                // cout << parragraphs->at(j)->getRating()<< endl<< endl;
+
+                Parragraph *insertPar = new Parragraph(*parragraphs->at(j));
+                top30Parragraphs->push_back(insertPar); // TODO: check the pointers
             }
-            delete parragraphs;
+            
         }
     }
 

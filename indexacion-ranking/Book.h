@@ -46,6 +46,7 @@ public:
         cout<<"Book partially built ";
         loadBtree(filePath);
         cout<<"Book built"<<endl;
+        setFilePath(filePath);
     }
 
     void loadBook(string &filePath)
@@ -198,10 +199,11 @@ public:
         wordMatches.push_back(word);
     }
 
-    void addToMultiSetAVL(Parragraph parragraph)
+    void addToMultiSetAVL(Parragraph *parragraph)
     {
-        Parragraph *parra = new Parragraph(parragraph);
-        allParragraphsRanked->insert(parra, 2);
+        Parragraph *parra = new Parragraph(*parragraph);
+        cout<<"adding to multisetAVL"<< *parra->getBookTitle()<<endl;
+        allParragraphsRanked->insert(parra, parra->getRating());
     }
 
     MultisetAVLTree<Parragraph>* getAllParragraphsRanked()
@@ -239,6 +241,10 @@ public:
     vector<string> getWordMatches()
     {
         return wordMatches;
+    }
+    void setFilePath(string filePath)
+    {
+        this->filePath = filePath;
     }
 };
 

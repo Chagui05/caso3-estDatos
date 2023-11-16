@@ -50,9 +50,9 @@ int main()
    finder.setTop30Parragraphs();
   vector<Parragraph*>* top30 = finder.getTop30Parragraphs();
 
-  for(int i = 0; i < top30->size(); i++)
+  for(int j = 0; j < top30->size(); j++)
   {
-    cout << i<< endl;
+    cout <<*top30->at(j)->getContent()<<endl;
   }
 
     
