@@ -128,7 +128,7 @@ int main(void)
     string* response = new string();
     string question = "what is the meaning of life?";
 
-    GptAPI<string> gpt = GptAPI<string>("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");
+    GptAPI<string> gpt = GptAPI<string>("apikey");
 
     response = gpt.askQuestion(question);
     cout <<"API response: "<< *response << endl;
