@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Input</title>
+</head>
+<body>
+    <form id="phraseForm">
+        <label for="phrase">Enter a phrase:</label>
+        <input type="text" id="phrase" name="phrase" required>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Obtaining the value from the textbox
+            const phraseValue = document.getElementById('phrase').value;
+
+            // Defining the URL to which the POST request will be sent
+            const url = 'http://localhost:8080';
+
+            // Data to be sent in the request body
+            const data = { phrase: phraseValue };
+
+            // Configuring the HTTP request
+            const requestOptions = {
+                method: 'POST',
+                mode: 'cors', // Using cors mode for cross-origin requests
+                headers: {
+                    'Content-Type': 'application/json', // Specify the content type as JSON
+                },
+                body: JSON.stringify(data), // Convert the object to JSON format
+            };
+
+            // Making the request using fetch
+            fetch(url, requestOptions)
+                .then(response => console.log(response)) // Parsing the response as JSON
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
