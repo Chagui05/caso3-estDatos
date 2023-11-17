@@ -51,7 +51,7 @@ public:
                         string *title = new string(book.getTitle());
                         string *author = new string(book.getAuthor());
                         string *filePath = new string(book.getFilePath());
-                        Parragraph* parra = new Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
+                        Parragraph* parra = new Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating, word->key);
                         book.addToMultiSetAVL(parra);
                         // delete rating;
                         // delete title;

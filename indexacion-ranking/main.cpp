@@ -58,7 +58,7 @@ int main()
 
   for(int j = 0; j < top30->size(); j++)
   {
-    cout <<j+1<<". "<<*top30->at(j)->getContent()<<endl;
+    cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<endl;
   }
 
     

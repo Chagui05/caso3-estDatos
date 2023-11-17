@@ -11,6 +11,7 @@ class Parragraph
 {
 private:
     string* bookTitle;
+    string* wordContained;
     string *bookAuthor;
     string *content;
     string *filePath;
@@ -19,7 +20,7 @@ private:
 
 public:
     Parragraph() {}
-    Parragraph(string* bookTitle, string* bookAuthor, string* content, string* filePath, int* page, int* rating)
+    Parragraph(string* bookTitle, string* bookAuthor, string* content, string* filePath, int* page, int* rating, string* wordContained)
     {
         this->bookTitle = bookTitle;
         this->bookAuthor = bookAuthor;
@@ -27,6 +28,7 @@ public:
         this->filePath = filePath;
         this->page = page;
         this->rating = rating;
+        this->wordContained = wordContained;
     }
 
     int getRating()
@@ -41,6 +43,10 @@ public:
     string* getBookTitle()
     {
         return bookTitle;
+    }
+    string* getWordContained()
+    {
+        return wordContained;
     }
     /*
     string feeling
