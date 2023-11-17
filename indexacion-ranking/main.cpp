@@ -21,6 +21,12 @@ int main()
      search.push_back("hello");
      search.push_back("magic");
      search.push_back("attempt");
+    search.push_back("gutenbergtm");
+    search.push_back("gutenberg");
+    search.push_back("carpenter");
+    search.push_back("howling");
+    search.push_back("enmanciparmente");
+
 
      cout <<endl<<endl;
      cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
@@ -52,7 +58,7 @@ int main()
 
   for(int j = 0; j < top30->size(); j++)
   {
-    cout <<*top30->at(j)->getContent()<<endl;
+    cout <<j+1<<". "<<*top30->at(j)->getContent()<<endl;
   }
 
     

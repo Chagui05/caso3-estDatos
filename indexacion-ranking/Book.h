@@ -142,7 +142,7 @@ public:
             wordObj->description->push_back(new string(*pParra));  // Create a new string, not just a pointer
             if (word.length() > 4)
             {
-                WordParragraphBTree->insert(wordObj);
+                WordParragraphBTree->insert(wordObj);// TODO: revisar que si se este metiendo info valida
             }
             delete wordObj;
         }

@@ -41,19 +41,18 @@ public:
                 string lookFor = book.getWordMatches().at(j);
                 cout << "buscando " << lookFor << endl;
 
-                Word *word = book.getBtree()->search(lookFor)->getKey(lookFor);
-                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl;
+                Word *word = book.getBtree()->search(lookFor);//TODO: sigue causando segmentation fault
+                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl<< endl;
                 if (word != nullptr)
                 {
                     for (int k = 0; k < word->description->size(); k++)
                     {
                         int *rating = new int(calculateRating(*word->description->at(k), book.getWordMatches()));
-                        cout << "rating: " << *rating << endl;
                         string *title = new string(book.getTitle());
                         string *author = new string(book.getAuthor());
                         string *filePath = new string(book.getFilePath());
                         Parragraph* parra = new Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating);
-                        book.addToMultiSetAVL(parra);//TODO: check the pointers
+                        book.addToMultiSetAVL(parra);
                         // delete rating;
                         // delete title;
                         // delete author;
@@ -75,12 +74,8 @@ public:
             vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked()->topVector(); 
             for (int j = 0; j < 3; j++)
             {
-                // cout << *parragraphs->at(j)->getBookTitle() << endl;
-                // cout << *parragraphs->at(j)->getContent()<< endl;
-                // cout << parragraphs->at(j)->getRating()<< endl<< endl;
-
                 Parragraph *insertPar = new Parragraph(*parragraphs->at(j));
-                top30Parragraphs->push_back(insertPar); // TODO: check the pointers
+                top30Parragraphs->push_back(insertPar); 
             }
             
         }

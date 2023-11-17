@@ -33,7 +33,7 @@ public:
   void insertNonFull(Word *word);
   void splitChild(int i, BTreeNode *child);
   void traverse();
-  BTreeNode *search(string key);
+  Word *search(string key);
 
   Word *getKey(string key)
   {
@@ -75,7 +75,7 @@ public:
       root->traverse();
   }
 
-  BTreeNode *search(string word)
+  Word *search(string word)
   {
     return (root == nullptr) ? nullptr : root->search(word);
   }
@@ -113,12 +113,11 @@ void BTreeNode::traverse()
     children[index]->traverse();
 }
 
-BTreeNode *BTreeNode::search(string word)
+Word *BTreeNode::search(string word)
 {
   int index = 0;
   while (index < numKeys && word > *keys[index].key)
     index++;
-
   if (keys[index].key == nullptr)
   {
     return children[index]->search(word);
@@ -126,7 +125,11 @@ BTreeNode *BTreeNode::search(string word)
 
   if (*keys[index].key == word)
   {
-    return this;
+    if(keys[index].key == nullptr)
+     { cout<<"return null"<< word<<endl;
+      return nullptr;
+     }
+    return &keys[index];//a a partir de aqui
   }
   if (isLeaf)
   {
@@ -179,7 +182,7 @@ void BTreeNode::insertNonFull(Word *word)
 
     if (index >= 0 && *keys[index].key == *word->key)
     {
-      keys[index].description->push_back(word->description->at(0)); // TODO:poner un for para ver como va contenido del vector
+      keys[index].description->push_back(word->description->at(0)); 
       keys[index].pages->push_back(word->pages->at(0));
     }
     else
