@@ -70,14 +70,24 @@ public:
         top30Parragraphs = new vector<Parragraph *>();
         for (int i = 0; i < top10Books->size(); i++)
         {
-            
             vector<Parragraph*>* parragraphs = top10Books->at(i).getAllParragraphsRanked()->topVector(); 
-            for (int j = 0; j < 3; j++)
-            {
-                Parragraph *insertPar = new Parragraph(*parragraphs->at(j));
-                top30Parragraphs->push_back(insertPar); 
-            }
             
+            if(parragraphs->size() < 3)
+            {
+                for(int k = 0; k < parragraphs->size(); k++)
+                {
+                    Parragraph *insertPar = new Parragraph(*parragraphs->at(k));
+                    top30Parragraphs->push_back(insertPar); 
+                }
+            }
+            else
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Parragraph *insertPar = new Parragraph(*parragraphs->at(j));
+                    top30Parragraphs->push_back(insertPar); 
+                }
+            }    
         }
     }
 
