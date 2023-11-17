@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include "json.hpp"
+//g++ -o gpt.o GptAPI.cpp -lcurl
 
 using namespace std;
 using json = nlohmann::json;
@@ -74,11 +75,11 @@ public:
 
         //request prompt
         json payload = {
-            {"model", "gpt-3.5-turbo"},
-            {"messages", {
-                             {"role", "system"},
-                             {"content", question}
-                         }}};
+        {"model", "gpt-3.5-turbo"},
+        {"messages", json::array({ // Ensure "messages" is an array
+            {{"role", "user"}, {"content", question}}
+        })}
+    };
             
         cout << payload.dump() << endl;
         // Convert the JSON payload to a string
@@ -126,9 +127,9 @@ public:
 int main(void)
 {
     string* response = new string();
-    string question = "what is the meaning of life?";
+    string question = "what is the biggest of tiger?";
 
-    GptAPI<string> gpt = GptAPI<string>("apikey");
+    GptAPI<string> gpt = GptAPI<string>("APIKEY HERE");//TODO:la quite, pero antes si estaba mandando una
 
     response = gpt.askQuestion(question);
     cout <<"API response: "<< *response << endl;
