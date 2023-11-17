@@ -101,8 +101,7 @@ public:
         if (res == CURLE_OK)
         {
             json responseData = json::parse(req.buffer);
-            //result = new string(responseData["choices"]["message"]["content"].get<string>());
-            result = new string(responseData.dump());
+            result = new string(responseData["choices"][0]["message"]["content"].get<string>());
             free(req.buffer);
         }
         else
@@ -127,9 +126,9 @@ public:
 int main(void)
 {
     string* response = new string();
-    string question = "what is the biggest of tiger?";
+    string question = "how many ballon d'or does messi have?";
 
-    GptAPI<string> gpt = GptAPI<string>("APIKEY HERE");//TODO:la quite, pero antes si estaba mandando una
+    GptAPI<string> gpt = GptAPI<string>("API-KEY-HERE");//TODO:la quite, pero antes si estaba mandando una
 
     response = gpt.askQuestion(question);
     cout <<"API response: "<< *response << endl;
