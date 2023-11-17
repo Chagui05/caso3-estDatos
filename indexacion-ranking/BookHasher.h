@@ -74,10 +74,16 @@ public:
     vector<Book>* getTop10Books()
     {
         vector<Book*>* top = ranked.topVector();
-
         vector<Book>* top10Books = new vector<Book>();
+        int tenOrLess = 10;
         
-        for (int i = 0; i < 10; i++)
+        if(top->size() < 10)
+        {
+            cout<< "size"<< top->size()<<endl;
+            tenOrLess = top->size();
+        }
+        
+        for (int i = 0; i < tenOrLess; i++)
         {
             cout <<"adding: "<< top->at(i)->getTitle();
             top10Books->push_back(*top->at(i));
