@@ -4,7 +4,7 @@
 #include <string>
 #include <stdio.h>
 #include <curl/curl.h>
-#include "json.hpp"
+#include "../generic/json.hpp"
 //g++ -o gpt.o GptAPI.cpp -lcurl
 
 using namespace std;

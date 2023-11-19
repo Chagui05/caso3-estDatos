@@ -9,7 +9,7 @@ std::string recievedPhrase;
 
 std::string formatPhrasePost(const std::string& input) {
     // Find the position of the "phrase" key
-    size_t phrasePos = input.find("\"phrase\"");
+    size_t phrasePos = input.find("phrase");
 
     // Check if the "phrase" key is found
     if (phrasePos != std::string::npos) {

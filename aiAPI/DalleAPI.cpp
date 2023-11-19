@@ -4,8 +4,8 @@
 #include <string>
 #include <stdio.h>
 #include <curl/curl.h>
-#include "json.hpp"
-//g++ -o gpt.o GptAPI.cpp -lcurl
+#include "../generic/json.hpp"
+//g++ -o gpt.o DalleAPI.cpp -lcurl
 
 using namespace std;
 using json = nlohmann::json;
@@ -77,8 +77,8 @@ public:
         json payload = {
         {"prompt",input },
         {"n",1 },
-        {"size","1024x1024" },
-        {"model", model}//TODO: ver si quitando model sirve también
+        {"size","1024x1024" }
+        // {"model", model}//TODO: ver si quitando model sirve también
         };
             
         cout << payload.dump() << endl;
@@ -101,7 +101,7 @@ public:
         if (res == CURLE_OK )
         {
             json responseData = json::parse(req.buffer);
-            cout << "API response: " << responseData.dump() << endl;
+            result = new string(responseData["data"][0]["url"].get<string>());
             free(req.buffer);
         }
         else
@@ -126,10 +126,10 @@ public:
 int main(void)
 {
     string* response = new string();
-    string question = "cat";
+    string question = "golden falcon";
 
     string dalle = "dall-e-3";//model type
-    DalleAPI<string> dalleAPi = DalleAPI<string>("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");//TODO:la quite, pero antes si estaba mandando una
+    DalleAPI<string> dalleAPi = DalleAPI<string>("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");//TODO:la quite, pero antes si estaba mandando una
 
     response = dalleAPi.genImage(question, dalle);
     cout <<"API response: "<< *response << endl;

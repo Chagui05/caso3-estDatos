@@ -41,7 +41,7 @@ public:
                 string lookFor = book.getWordMatches().at(j);
                 cout << "buscando " << lookFor << endl;
 
-                Word *word = book.getBtree()->search(lookFor);//TODO: sigue causando segmentation fault
+                Word *word = book.getBtree()->search(lookFor);//TODO: 
                 cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl<< endl;
                 if (word != nullptr)
                 {

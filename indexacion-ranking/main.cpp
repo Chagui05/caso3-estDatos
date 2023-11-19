@@ -8,7 +8,7 @@
 #include "BookHasher.h"
 #include "../prelim#2/BookParragraphFinder.h"
 using namespace std;
-
+//g++ -std=c++17 -pthread main.cpp -o prueba.o
 int main()
 {
   cout <<"Loading Books..."<<endl;
@@ -27,7 +27,7 @@ int main()
   //search.push_back("enmanciparmente");
 
 
-  std::this_thread::sleep_for(chrono::seconds(5));
+  std::this_thread::sleep_for(chrono::seconds(3));
 
   cout <<endl<<endl;
   cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
@@ -52,7 +52,8 @@ int main()
   
   cout<<endl<<endl;
   
-  std::this_thread::sleep_for(chrono::seconds(5));
+  std::this_thread::sleep_for(chrono::seconds(3));
+
   cout <<"Looking for the parragraphs..."<<endl<<endl;
   BookParragraphFinder finder = BookParragraphFinder(top10);
   finder.findAppearences();
