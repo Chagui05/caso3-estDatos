@@ -129,7 +129,7 @@ int main(void)
     string question = "golden falcon";
 
     string dalle = "dall-e-3";//model type
-    DalleAPI<string> dalleAPi = DalleAPI<string>("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");//TODO:la quite, pero antes si estaba mandando una
+    DalleAPI<string> dalleAPi = DalleAPI<string>("api key here");//TODO:la quite, pero antes si estaba mandando una
 
     response = dalleAPi.genImage(question, dalle);
     cout <<"API response: "<< *response << endl;
