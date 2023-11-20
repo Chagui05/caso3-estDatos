@@ -35,14 +35,13 @@ public:
         for (int i = 0; i < top10Books->size(); i++)
         {
             Book book = top10Books->at(i);
-            cout << book.getTitle() << endl;
             for (int j = 0; j < book.getWordMatches().size(); j++)
             {
                 string lookFor = book.getWordMatches().at(j);
-                cout << "buscando " << lookFor << endl;
+                //cout << "buscando " << lookFor << endl;
 
                 Word *word = book.getBtree()->search(lookFor);//TODO: 
-                cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl<< endl;
+                //cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl<< endl;
                 if (word != nullptr)
                 {
                     for (int k = 0; k < word->description->size(); k++)

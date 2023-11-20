@@ -61,7 +61,7 @@ int main()
   vector<Parragraph*>* top30 = finder.getTop30Parragraphs();
   for(int j = 0; j < top30->size(); j++)
   {
-    cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<endl;
+    cout <<j+1<<". "<<top30->at(j)->getRating()<< " " << *top30->at(j)->getBookTitle() << endl;
   }
 
   return 0;

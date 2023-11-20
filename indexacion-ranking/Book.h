@@ -202,7 +202,6 @@ public:
     void addToMultiSetAVL(Parragraph *parragraph)
     {
         Parragraph *parra = new Parragraph(*parragraph);
-        cout<<"adding to multisetAVL"<< *parra->getBookTitle()<<endl;
         allParragraphsRanked->insert(parra, parra->getRating());
     }
 
