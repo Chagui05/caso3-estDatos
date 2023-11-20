@@ -60,15 +60,15 @@ public:
         }
         string line;
         getline(file, line);
-        title = line.substr(10);
+        title = line;
 
         getline(file, line);
         getline(file, line);
-        description = line.substr(13);
+        description = line;
 
         getline(file, line);
         getline(file, line);
-        author = line.substr(8);
+        author = line;
         file.close();
     }
 

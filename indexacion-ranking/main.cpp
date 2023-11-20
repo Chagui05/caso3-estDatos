@@ -2,7 +2,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <string>
-#include <thread>
+// #include <thread>
 #include <chrono>
 #include <vector>
 #include "BookHasher.h"
@@ -27,7 +27,7 @@ int main()
   //search.push_back("enmanciparmente");
 
 
-  std::this_thread::sleep_for(chrono::seconds(3));
+  // std::this_thread::sleep_for(chrono::seconds(3));
 
   cout <<endl<<endl;
   cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
@@ -52,7 +52,7 @@ int main()
   
   cout<<endl<<endl;
   
-  std::this_thread::sleep_for(chrono::seconds(3));
+  // std::this_thread::sleep_for(chrono::seconds(3));
 
   cout <<"Looking for the parragraphs..."<<endl<<endl;
   BookParragraphFinder finder = BookParragraphFinder(top10);
