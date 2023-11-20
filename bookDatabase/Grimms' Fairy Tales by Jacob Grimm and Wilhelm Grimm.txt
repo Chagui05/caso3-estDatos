@@ -1,8 +1,8 @@
-﻿Title: Grimms’ Fairy Tales
+﻿Grimms’ Fairy Tales
 
-Description: A collection of classic fairy tales by the Brothers Grimm.
+A collection of classic fairy tales by the Brothers Grimm.
 
-Author: Jacob Grimm and Wilhelm Grimm
+Jacob Grimm and Wilhelm Grimm
 
 Release Date: April, 2001
 

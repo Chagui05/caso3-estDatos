@@ -1,8 +1,8 @@
-﻿Title: The Odyssey
+﻿The Odyssey
 
-Description: An ancient Greek epic about Odysseus' journey home after the Trojan War.
+An ancient Greek epic about Odysseus' journey home after the Trojan War.
 
-Author: Homer
+Homer
 
 Release Date: April, 1999
 

@@ -1,8 +1,8 @@
-﻿Title: The Wonderful Wizard of Oz
+﻿The Wonderful Wizard of Oz
 
-Description: A children's novel about Dorothy's adventures in the Land of Oz.
+A children's novel about Dorothy's adventures in the Land of Oz.
 
-Author: L. Frank Baum
+L. Frank Baum
 
 Release Date: February, 1993
 

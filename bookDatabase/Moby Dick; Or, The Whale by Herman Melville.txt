@@ -1,8 +1,8 @@
-Title: Moby-Dick
+Moby-Dick
 
-Description: The Whale
+The Whale
 
-Author: Herman Melville
+Herman Melville
 
 Release Date: June, 2001
 

@@ -1,8 +1,8 @@
-﻿Title: Adventures of Huckleberry Finn
+﻿Adventures of Huckleberry Finn
 
-Description: A boy and a runaway slave's journey down the Mississippi River.
+A boy and a runaway slave's journey down the Mississippi River.
 
-Author: Mark Twain (Samuel Clemens)
+Mark Twain (Samuel Clemens)
 
 Release Date: August, 1993
 

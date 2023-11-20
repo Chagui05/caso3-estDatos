@@ -1,8 +1,8 @@
-Title: Dracula
+Dracula
 
-Description: A vampire's menacing presence in Victorian England.
+A vampire's menacing presence in Victorian England.
 
-Author: Bram Stoker
+Bram Stoker
 
 Release Date: October, 1995
 

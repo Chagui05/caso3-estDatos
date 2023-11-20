@@ -1,8 +1,8 @@
-﻿Title: The Great Gatsby
+﻿The Great Gatsby
 
-Description: A novel about wealth, love, and the American Dream in the Roaring Twenties.
+A novel about wealth, love, and the American Dream in the Roaring Twenties.
 
-Author: F. Scott Fitzgerald
+F. Scott Fitzgerald
 
 Release Date: January 17, 2021
 

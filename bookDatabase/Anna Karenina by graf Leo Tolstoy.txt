@@ -1,8 +1,8 @@
-﻿Title: Anna Karenina
+﻿Anna Karenina
 
-Description: A story of love, society, and consequences in 19th-century Russia.
+A story of love, society, and consequences in 19th-century Russia.
 
-Author: Leo Tolstoy
+Leo Tolstoy
 
 Release Date: July 1, 1998
 

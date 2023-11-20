@@ -1,8 +1,8 @@
-﻿Title: The Strange Case Of Dr. Jekyll And Mr. Hyde
+﻿The Strange Case Of Dr. Jekyll And Mr. Hyde
 
-Description: A novella about the duality of human nature with Dr. Jekyll and Mr. Hyde.
+A novella about the duality of human nature with Dr. Jekyll and Mr. Hyde.
 
-Author: Robert Louis Stevenson
+Robert Louis Stevenson
 
 Release Date: October 31, 1992
 

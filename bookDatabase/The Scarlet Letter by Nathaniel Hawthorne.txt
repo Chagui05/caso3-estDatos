@@ -1,8 +1,8 @@
-﻿Title: The Scarlet Letter
+﻿The Scarlet Letter
 
-Description: A novel about a woman's public shame in Puritan Massachusetts.
+A novel about a woman's public shame in Puritan Massachusetts.
 
-Author: Nathaniel Hawthorne
+Nathaniel Hawthorne
 
 Release Date: May 22, May 5, 2008
 

@@ -1,8 +1,8 @@
-﻿Title: The Adventures of Tom Sawyer
+﻿The Adventures of Tom Sawyer
 
-Description: A novel about the adventures of a young boy named Tom Sawyer.
+A novel about the adventures of a young boy named Tom Sawyer.
 
-Author: Mark Twain (Samuel Clemens)
+Mark Twain (Samuel Clemens)
 
 Release Date: July, 1993
 

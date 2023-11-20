@@ -1,8 +1,8 @@
-﻿Title: The Picture of Dorian Gray
+﻿The Picture of Dorian Gray
 
-Description: A novel about vanity and eternal youth by Oscar Wilde.
+A novel about vanity and eternal youth by Oscar Wilde.
 
-Author: Oscar Wilde
+Oscar Wilde
 
 Release Date: October, 1994
 

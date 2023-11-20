@@ -1,8 +1,8 @@
-﻿Title: Crime and Punishment
+﻿Crime and Punishment
 
-Description: A novel about the moral turmoil after a murder.
+A novel about the moral turmoil after a murder.
 
-Author: Fyodor Dostoevsky
+Fyodor Dostoevsky
 
 Release Date: March, 2001
 

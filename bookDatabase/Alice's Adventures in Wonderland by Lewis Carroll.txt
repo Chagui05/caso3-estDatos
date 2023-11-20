@@ -1,8 +1,8 @@
-﻿Title: Alice’s Adventures in Wonderland
+﻿Alice’s Adventures in Wonderland
 
-Description: A girl's surreal adventures in a whimsical world.
+A girl's surreal adventures in a whimsical world.
 
-Author: Lewis Carroll
+Lewis Carroll
 
 Release Date: January, 1991
 

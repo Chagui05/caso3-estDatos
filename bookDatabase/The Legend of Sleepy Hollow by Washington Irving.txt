@@ -1,8 +1,8 @@
-﻿Title: The Legend of Sleepy Hollow
+﻿The Legend of Sleepy Hollow
 
-Description: A spooky tale about Ichabod Crane and the Headless Horseman in Sleepy Hollow.
+A spooky tale about Ichabod Crane and the Headless Horseman in Sleepy Hollow.
 
-Author: Washington Irving
+Washington Irving
 
 Release Date: October, 1992
 

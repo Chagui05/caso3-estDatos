@@ -1,8 +1,8 @@
-﻿Title: The Count of Monte Cristo
+﻿The Count of Monte Cristo
 
-Description: An adventure novel about a man seeking revenge and justice.
+An adventure novel about a man seeking revenge and justice.
 
-Author: Alexandre Dumas, père
+Alexandre Dumas, père
 
 Release Date: January, 1998 
 

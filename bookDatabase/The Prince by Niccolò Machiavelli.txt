@@ -1,8 +1,8 @@
-﻿Title: The Prince
+﻿The Prince
 
-Description: A political treatise by Machiavelli on leadership and power.
+A political treatise by Machiavelli on leadership and power.
 
-Author: Nicolo Machiavelli
+Nicolo Machiavelli
 
 Release Date: March, 1998
 
