@@ -2,6 +2,7 @@
 #define _FBTREE_ 1
 #include <iostream>
 #include <string>
+#include <cstdint>
 #include <vector>
 using namespace std;
 int minDegree = 3;
@@ -116,21 +117,40 @@ void BTreeNode::traverse()
 Word *BTreeNode::search(string word)
 {
   int index = 0;
+  if(this == nullptr)
+  {
+    return nullptr;
+  }
+
   while (index < numKeys && word > *keys[index].key)
+  {
     index++;
+  }
+
   if (keys[index].key == nullptr)
   {
     return children[index]->search(word);
+  }
+  std::stringstream ss;
+  ss << std::hex << reinterpret_cast<uintptr_t>(keys[index].key);
+  std::string addressString = ss.str();
+  if(addressString.size() < 7)
+  {
+    cout<<"null"<<endl;
+    return nullptr;
   }
 
   if (*keys[index].key == word)
   {
     if(keys[index].key == nullptr)
-     { cout<<"return null"<< word<<endl;
+    { 
+      cout<<"return null"<< word<<endl;
       return nullptr;
-     }
+    }
     return &keys[index];//a a partir de aqui
   }
+
+
   if (isLeaf)
   {
     return nullptr;

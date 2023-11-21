@@ -6,12 +6,12 @@
 #include <string>
 #include <vector>
 #include <cctype>
-#include <filesystem>
-#include "Library.h"
-#include "BookOperations.h"
+// #include <filesystem>
+#include "../indexacion-ranking/Library.h"
+#include "../indexacion-ranking/BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
 using namespace std;
-namespace fs = std::filesystem;
+// namespace fs = std::filesystem;
 
 class BookHasher : public BookOperations<Book>
 {
@@ -19,19 +19,22 @@ private:
     MultisetAVLTree<Book> ranked;
 public:
     BookHasher(){};
-
-    void hashBooksInFolder(const string &folderPath)
+    BookHasher(Library *libs)
     {
-        for (const auto &file : fs::directory_iterator(folderPath))
-        {
-            string path = file.path();
-            Book book = Book();
-            cout << path << endl;
-            book.buildBook(path);
-            cout<<"yes"<<endl<<endl;
-            books.addToBooks(book);
-        }
+        books = *libs;
     };
+    // void hashBooksInFolder(const string &folderPath)
+    // {
+    //     for (const auto &file : fs::directory_iterator(folderPath))
+    //     {
+    //         string path = file.path();
+    //         Book book = Book();
+    //         cout << path << endl;
+    //         book.buildBook(path);
+    //         cout<<"yes"<<endl<<endl;
+    //         books.addToBooks(book);
+    //     }
+    // };
 
     void getRankedMultiSetAVL(vector<string> search)
     {

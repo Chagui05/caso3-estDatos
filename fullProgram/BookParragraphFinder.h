@@ -9,7 +9,8 @@
 #include "../indexacion-ranking/Library.h"
 #include "../indexacion-ranking/BookOperations.h"
 #include "../generic/MultiAVLImplementation.h"
-#include "ParagraphRating.h"
+#include "../prelim#2/Parragraph.h"
+#include "../prelim#2/ParagraphRating.h"
 
 using namespace std;
 
@@ -22,26 +23,27 @@ private:
 public:
     BookParragraphFinder()
     {
+        top30Parragraphs = new vector<Parragraph *>();
     };
 
-    BookParragraphFinder(vector<Book> *top10)
+    BookParragraphFinder(vector<Book> top10)
     {
-        top10Books = top10;
         top30Parragraphs = new vector<Parragraph *>();
     }
 
-    void findAppearences()
+    void findAppearences(vector<Book> top10)
     {
+        top10Books = new vector<Book>(top10);
         for (int i = 0; i < top10Books->size(); i++)
         {
             Book book = top10Books->at(i);
+            // cout << "Book: " << book.getTitle() << endl;
             for (int j = 0; j < book.getWordMatches().size(); j++)
             {
                 string lookFor = book.getWordMatches().at(j);
-                //cout << "buscando " << lookFor << endl;
 
+                // cout << "buscando " << lookFor << endl;
                 Word *word = book.getBtree()->search(lookFor);//TODO: 
-                //cout << "se encontro la palabra: " << *word->key << " " << lookFor << endl<< endl;
                 if (word != nullptr)
                 {
                     for (int k = 0; k < word->description->size(); k++)
@@ -52,10 +54,10 @@ public:
                         string *filePath = new string(book.getFilePath());
                         Parragraph* parra = new Parragraph(title, author, word->description->at(k), filePath, word->pages->at(k), rating, word->key);
                         book.addToMultiSetAVL(parra);
-                        // delete rating;
-                        // delete title;
-                        // delete author;
-                        // delete filePath;
+                //         // delete rating;
+                //         // delete title;
+                //         // delete author;
+                //         // delete filePath;
                     }
                 }
             }

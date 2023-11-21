@@ -53,8 +53,9 @@ public:
     }
 
     vector<string> getWords(const string& input) {
+        string removedStopWords = removeStopwords(input);
         vector<string> words;
-        istringstream iss(input);
+        istringstream iss(removedStopWords);
         string word;
 
         while (iss >> word) {
@@ -64,7 +65,10 @@ public:
             // Convert the word to lowercase for case-insensitive comparison
             transform(word.begin(), word.end(), word.begin(), ::tolower);
 
-            words.push_back(word);
+            if(word.size() > 4)
+            {
+                words.push_back(word);
+            }
         }
 
         return words;
