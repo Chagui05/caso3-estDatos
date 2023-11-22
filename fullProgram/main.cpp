@@ -15,7 +15,7 @@ int main()
 
   program.createBooks("../bookDatabase");
 
-  program.run("The quick brown fox jumps over the lazy dog");
+  program.run("bosom those spacious coves indent eastern shore Hudson broad expansion river denominated ancient Dutch navigators prudently");
 
   return 0;
 };

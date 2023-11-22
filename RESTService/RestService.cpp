@@ -34,7 +34,9 @@ std::string formatPhrasePost(const std::string& input) {
 }
 
 string handle_post(const httplib::Request& req, httplib::Response& res) {
-    
+    res.set_header("Access-Control-Allow-Origin", "*");
+    res.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    res.set_header("Access-Control-Allow-Headers", "Content-Type");
     std::cout << req.body << std::endl;
     recievedPhrase = req.body;
     string newPhrase = formatPhrasePost(recievedPhrase);
@@ -67,6 +69,7 @@ std::string startServer(){
 
 int main()
 {
+    //g++ -o test.o RestService.cpp -lcurl
     program.createBooks("../bookDatabase");
     startServer();
     return 0;

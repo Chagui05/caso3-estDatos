@@ -25,25 +25,32 @@
 
     </div>
 
+
     <script>
         function search() {
+            
             var searchTerm = document.getElementById('search').value;
+            var postData = {
+                phrase: searchTerm
+            };
+            console.log(postData);
 
-            // Assuming you have a function to fetch search results
-            // Replace the following lines with your actual API call or data processing logic
-            var searchResults = [
-                {
-                    author: 'John Doe',
-                    title: 'Sample Title',
-                    page: 'Page 1',
-                    paragraph: 'This is a sample paragraph.',
-                    feeling: 'Happy',
-                    image: 'image1.jpg'
+            fetch('http://localhost:8080', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                // Add more search results as needed
-            ];
+                body: JSON.stringify(postData),
+            })
+            .then(res=>res.json())
+            .then(searchResults => {
+                console.log('Success:', searchResults);
+                displaySearchResults(searchResults);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
-            displaySearchResults(searchResults);
         }
 
         function displaySearchResults(results) {
@@ -55,9 +62,9 @@
                 resultDiv.classList.add('mb-8', 'border', 'p-4', 'rounded');
 
                 resultDiv.innerHTML = `
-                    <p class="mb-2"><strong>Author:</strong> ${result.author}</p>
-                    <p class="mb-2"><strong>Title, Page:</strong> ${result.title}, ${result.page}</p>
-                    <p class="mb-2"><strong>Paragraph:</strong> ${result.paragraph}</p>
+                    <p class="mb-2"><strong>Author:</strong> ${result.bookAuthor}</p>
+                    <p class="mb-2"><strong>Title, Page:</strong> ${result.bookTitle}, ${result.page}</p>
+                    <p class="mb-2"><strong>Paragraph:</strong> ${result.content}</p>
                     <p class="mb-2"><strong>Feeling:</strong> ${result.feeling}</p>
                     <img src="${result.image}" alt="Image" class="mt-2 w-full">
                 `;
