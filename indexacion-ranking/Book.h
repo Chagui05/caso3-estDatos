@@ -59,7 +59,7 @@ public:
             return;
         }
         string line;
-        getline(file, line);
+        getline(file, line);//TODO: quitar el /r, la funcion debe estar abajo
         title = line;
 
         getline(file, line);

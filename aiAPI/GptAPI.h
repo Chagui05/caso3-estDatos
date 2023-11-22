@@ -1,46 +1,19 @@
-#ifndef _NEWSPROFE_
-#define _NEWSPROFE_ 1
+#ifndef _GPT_
+#define _GPT_ 1
 #include <iostream>
 #include <string>
 #include <stdio.h>
 #include <curl/curl.h>
 #include "../generic/json.hpp"
-//g++ -o gpt.o DalleAPI.cpp -lcurl
+//g++ -o gpt.o GptAPI.cpp -lcurl
 
 using namespace std;
 using json = nlohmann::json;
 
 #define CHUNK_SIZE 2048
 
-typedef struct
-{
-    unsigned char *buffer;
-    size_t len;
-    size_t buflen;
-} get_request;
-
-// static method to act as callback for curl
-size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
-{
-    size_t realsize = size * nmemb;
-    get_request *req = (get_request *)userdata;
-
-    printf("receive chunk of %zu bytes\n", realsize);
-
-    while (req->buflen < req->len + realsize + 1)
-    {
-        req->buffer = (unsigned char *)realloc(req->buffer, req->buflen + CHUNK_SIZE);
-        req->buflen += CHUNK_SIZE;
-    }
-    memcpy(&req->buffer[req->len], ptr, realsize);
-    req->len += realsize;
-    req->buffer[req->len] = 0;
-
-    return realsize;
-};
-
 template <typename T>
-class DalleAPI
+class GptAPI
 {
 private:
     CURL *curl;
@@ -48,11 +21,14 @@ private:
     string apiKey;
 
 public:
-    DalleAPI(string apiKey)
+    GptAPI()
+    {
+    }
+    GptAPI(string apiKey)
     {
         this->apiKey = apiKey;
     }
-    T* genImage(string &input, string &model)
+    T* askQuestion(string &question, string &model)
     {
 
         T* result;
@@ -62,7 +38,7 @@ public:
         curl = curl_easy_init();
 
         // build the URL with the proper entryid
-        string url = "https://api.openai.com/v1/images/generations";
+        string url = "https://api.openai.com/v1/chat/completions";
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
         struct curl_slist* headers = nullptr;
@@ -75,11 +51,11 @@ public:
 
         //request prompt
         json payload = {
-        {"prompt",input },
-        {"n",1 },
-        {"size","1024x1024" }
-        // {"model", model}//TODO: ver si quitando model sirve también
-        };
+        {"model", model},
+        {"messages", json::array({ // Ensure "messages" is an array
+            {{"role", "user"}, {"content", question}}
+        })}
+    };
             
         cout << payload.dump() << endl;
         // Convert the JSON payload to a string
@@ -101,7 +77,7 @@ public:
         if (res == CURLE_OK )
         {
             json responseData = json::parse(req.buffer);
-            result = new string(responseData["data"][0]["url"].get<string>());
+            result = new string(responseData["choices"][0]["message"]["content"].get<string>());
             free(req.buffer);
         }
         else
@@ -123,17 +99,17 @@ public:
     };
 };
 
-int main(void)
-{
-    string* response = new string();
-    string question = "golden falcon";
+//int main(void)
+// {
+//     string* response = new string();
+//     string question = "What is true love? can you experience it?";
 
-    string dalle = "dall-e-3";//model type
-    DalleAPI<string> dalleAPi = DalleAPI<string>("api key here");//TODO:la quite, pero antes si estaba mandando una
+//     string chatGpt = "gpt-3.5-turbo";//model type
+//     GptAPI<string> gpt = GptAPI<string>("ApiKeyHere");//TODO:la quite, pero antes si estaba mandando una
 
-    response = dalleAPi.genImage(question, dalle);
-    cout <<"API response: "<< *response << endl;
-    return 0;
-}
+//     response = gpt.askQuestion(question, chatGpt);
+//     cout <<"API response: "<< *response << endl;
+//     return 0;
+// }
 
 #endif

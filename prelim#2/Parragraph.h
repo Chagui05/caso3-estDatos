@@ -15,6 +15,8 @@ private:
     string *bookAuthor;
     string *content;
     string *filePath;
+    string* feeling;
+    string* image;
     int* page;
     int *rating;
 
@@ -29,6 +31,8 @@ public:
         this->page = page;
         this->rating = rating;
         this->wordContained = wordContained;
+        this->feeling = new string();
+        this->image = new string();
     }
 
     int getRating()
@@ -36,22 +40,53 @@ public:
         return *rating;
     }
 
+    int* getPage()
+    {
+        return page;
+    }
+
     string* getContent()
     {
         return content;
     }
+
     string* getBookTitle()
     {
         return bookTitle;
     }
+
     string* getWordContained()
     {
         return wordContained;
     }
-    /*
-    string feeling
-    Image image 
-    */
+
+    string* getBookAuthor()
+    {
+        return bookAuthor;
+    }
+
+    string* getFilePath()
+    {
+        return filePath;
+    }
+    
+    string* getFeeling()
+    {
+        return feeling;
+    }
+    string* getImage()
+    {
+        return image;
+    }
+
+    void setFeeling(string* feeling)
+    {
+        this->feeling = feeling;
+    }
+    void setImage(string* image)
+    {
+        this->image = image;
+    }
 
 };
 #endif

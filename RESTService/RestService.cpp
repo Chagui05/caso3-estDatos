@@ -4,8 +4,12 @@
 #include "httplib.h"
 #include <iostream>
 #include <string>
+#include <vector>
+#include "../fullProgram/FullProgram.h"
+using namespace std;
 
 std::string recievedPhrase;
+FullProgram program = FullProgram();
 
 std::string formatPhrasePost(const std::string& input) {
     // Find the position of the "phrase" key
@@ -29,12 +33,17 @@ std::string formatPhrasePost(const std::string& input) {
     }
 }
 
-std::string handle_post(const httplib::Request& req, httplib::Response& res) {
-    res.set_content("Hola", "text/plain");
+string handle_post(const httplib::Request& req, httplib::Response& res) {
+    
     std::cout << req.body << std::endl;
-    recievedPhrase=req.body;
-    std::cout << "Frase Recibida: " << formatPhrasePost(recievedPhrase) <<std::endl;
-    return formatPhrasePost(recievedPhrase);
+    recievedPhrase = req.body;
+    string newPhrase = formatPhrasePost(recievedPhrase);
+    std::cout << "Frase Recibida: " << newPhrase <<std::endl;
+
+    string jsonString = program.run(newPhrase);
+
+    res.set_content(jsonString, "text/plain");
+    return jsonString;
 }
 
 std::string startServer(){
@@ -53,10 +62,12 @@ std::string startServer(){
     std::cout << "Server listening on http://localhost:8080" << std::endl;
 
     svr.listen("0.0.0.0", 8080);
-    return recievedPhrase;
 }
 
-int main(){
+
+int main()
+{
+    program.createBooks("../bookDatabase");
     startServer();
     return 0;
 }

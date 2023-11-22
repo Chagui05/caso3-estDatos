@@ -28,12 +28,12 @@ public:
 
     BookParragraphFinder(vector<Book> top10)
     {
+        top10Books = new vector<Book>(top10);
         top30Parragraphs = new vector<Parragraph *>();
     }
 
-    void findAppearences(vector<Book> top10)
+    void findAppearences()
     {
-        top10Books = new vector<Book>(top10);
         for (int i = 0; i < top10Books->size(); i++)
         {
             Book book = top10Books->at(i);
