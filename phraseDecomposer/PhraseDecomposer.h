@@ -101,8 +101,13 @@ public:
                 delete synonyms; // Clean up the Synonym object
             }
         }
+        vector<std::string> reducedResult;
+        for(int i = 0 ; i < 15; i++)//solo 15 palabras, se puede cambiar valor alambrado
+        {
+            reducedResult.push_back(result[i]);
+        }
 
-        return result;
+        return reducedResult;
     }
 
 private:

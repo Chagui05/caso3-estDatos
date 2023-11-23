@@ -122,7 +122,16 @@ Word *BTreeNode::search(string word)
     return nullptr;
   }
 
-  while (index < numKeys && word > *keys[index].key)
+  std::stringstream ss;
+  ss << std::hex << reinterpret_cast<uintptr_t>(keys[index].key);
+  std::string addressString = ss.str();
+  cout<<addressString<<endl;
+  if(addressString.size() < 7)
+  {
+    cout<<"null"<<endl;
+    return nullptr;
+  }
+  while (index < numKeys && word > *keys[index].key && keys[index].key != nullptr)
   {
     index++;
   }
@@ -130,14 +139,6 @@ Word *BTreeNode::search(string word)
   if (keys[index].key == nullptr)
   {
     return children[index]->search(word);
-  }
-  std::stringstream ss;
-  ss << std::hex << reinterpret_cast<uintptr_t>(keys[index].key);
-  std::string addressString = ss.str();
-  if(addressString.size() < 7)
-  {
-    cout<<"null"<<endl;
-    return nullptr;
   }
 
   if (*keys[index].key == word)

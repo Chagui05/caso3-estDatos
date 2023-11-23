@@ -16,7 +16,7 @@ int main()
 
   program.createBooks("../bookDatabase");
 
-  program.run("magic");
+  program.run("time it was night I was pretty hungry. So when it was good anddark I slid out from shore before moonrise and paddled over to the Illinois bank—about a quarter of a mile");
 
   // program.run("hello magic ");
 
