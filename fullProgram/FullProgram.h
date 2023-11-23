@@ -44,7 +44,7 @@ public:
     string run(string phrase)
     {
         PhraseDecomposer decomposer = PhraseDecomposer();
-        vector<string> search = getWordAndSynonyms(decomposer.getWords(phrase));
+        vector<string> search = decomposer.getWordAndSynonyms(decomposer.getWords(phrase));
         
         cout <<endl<<endl;
 
