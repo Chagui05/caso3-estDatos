@@ -23,7 +23,7 @@ namespace fs = std::filesystem;
 class FullProgram : public BookOperations<Book>
 {
 private:
-    AIQuestions asker = AIQuestions("APIKEYHERE"); //this is the API key
+    AIQuestions asker = AIQuestions("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"); //this is the API key
 public:
     FullProgram(){};
 
@@ -79,19 +79,17 @@ public:
 
         for(int j = 0; j < top30->size(); j++)
         {
-            string question = "give me a feeling (just a word) based on this: ";
-            // cout <<j+1<<". "<<top30->at(j)->getRating()<< " " << *top30->at(j)->getContent()<< endl;
             cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<" "<<*top30->at(j)->getWordContained()<<endl;
+
             //set the feeling and image
-            question += *top30->at(j)->getContent();
-            // string *feeling = asker.askQuestion(question);TODO: uncomment this
-            // string *image = asker.genImage(*feeling);
+            // string *feeling = asker.parragraphQuestion(*top30->at(j)->getContent());//TODO: uncomment this
             // top30->at(j)->setFeeling(feeling);
+            // cout << "Feeling: " << *feeling << endl<< endl;
+            // string *image = asker.genImage(*feeling);
             // top30->at(j)->setImage(image);
 
             top30->at(j)->setFeeling(new string("feeling"));
             top30->at(j)->setImage(new string("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuxqrYaFZR02ygglW1h3uQYTfkCqsvN5G6lblfKhDFJwcFCZgT7M0X58y-SrFIeCqqWT8&usqp=CAU"));
-            question = "";
         }
 
         string serialized = serializeParragraps(*top30);
