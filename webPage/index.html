@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Snippet</title>
-    <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -20,7 +19,6 @@
         </div>
 
         <div id="search-results">
-            <!-- Results will be displayed here dynamically -->
         </div>
 
     </div>
@@ -66,7 +64,7 @@
                     <p class="mb-2"><strong>Title, Page:</strong> ${result.bookTitle}, ${result.page}</p>
                     <p class="mb-2"><strong>Paragraph:</strong> ${result.content}</p>
                     <p class="mb-2"><strong>Feeling:</strong> ${result.feeling}</p>
-                    <img src="${result.image}" alt="Image" class="mt-2 w-full">
+                    <img src="${result.image}" alt="Image" class="mt-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
                 `;
 
                 resultsContainer.appendChild(resultDiv);
