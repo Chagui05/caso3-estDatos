@@ -14,6 +14,7 @@
 #include "BookParragraphFinder.h"
 #include "../phraseDecomposer/PhraseDecomposer.h"
 #include "../aiAPI/AIQuestions.h"
+#include "../SynonymsApi/SynonymsApi.h"
 
 
 using namespace std;
@@ -43,7 +44,7 @@ public:
     string run(string phrase)
     {
         PhraseDecomposer decomposer = PhraseDecomposer();
-        vector<string> search = decomposer.getWords(phrase);
+        vector<string> search = getWordAndSynonyms(decomposer.getWords(phrase));
         
         cout <<endl<<endl;
 
