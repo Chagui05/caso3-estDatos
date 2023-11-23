@@ -18,7 +18,10 @@ int calculateRating(string paragraph, vector<string> words)
 
     while (parragraph >> word)
     {
-        // if(word.size() > 4)
+        //TODO:remove punctuation marks
+        word.erase(std::remove_if(word.begin(), word.end(), [](char c)
+                                          { return !std::isalpha(c); }),
+                           word.end());
         if (wordSet.find(word) != wordSet.end())
         {
             positions.push_back(count);
@@ -26,10 +29,10 @@ int calculateRating(string paragraph, vector<string> words)
         count++;
     }
 
-    int rating = positions.size();
+    int rating = positions.size();// esto son la cantidad de apariciones
     for (int i = 0; (i + 1) < positions.size(); i++)
     {
-        if ((positions[i + 1] - positions[i]) < 4) // reglas
+        if ((positions[i + 1] - positions[i]) < 4) // reglas  10 -5 = 5
         {
             rating += 4;
         }

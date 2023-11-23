@@ -13,7 +13,7 @@
 #include "BookHasher.h"
 #include "BookParragraphFinder.h"
 #include "../phraseDecomposer/PhraseDecomposer.h"
-#include "../aiAPI/AIQuestions.h"
+#include "../SentimentApi/SentimentApi.h"
 #include "../SynonymsApi/SynonymsApi.h"
 
 
@@ -24,7 +24,7 @@ namespace fs = std::filesystem;
 class FullProgram : public BookOperations<Book>
 {
 private:
-    AIQuestions asker = AIQuestions("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"); //this is the API key
+    ApiGetter api;
 public:
     FullProgram(){};
 
@@ -44,12 +44,12 @@ public:
     string run(string phrase)
     {
         PhraseDecomposer decomposer = PhraseDecomposer();
-        vector<string> search = decomposer.getWordAndSynonyms(decomposer.getWords(phrase));
+        vector<string> search = decomposer.getWords(phrase);
         
         cout <<endl<<endl;
 
-        Library* libs = new Library(books);
-        libs->resetLibrary();
+        Library* libs = new Library(books);//ese books es el propio de la clase, lo convertimos a puntero
+        libs->resetLibrary();//reseteamos para que no se acumulen: wordmatches, top3parragraphs, etc
 
         BookHasher bookHasher = BookHasher(libs);
         cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
@@ -60,40 +60,38 @@ public:
             
         cout << "BOOKS RANKED" << endl;
         cout << "Top 10: " << endl;
-        vector<Book>* top10 = bookHasher.getTop10Books();
+        vector<Book>* top10 = bookHasher.getTop10Books();//sacamos los 10 mejores libros del AVL de BookHaser
         for(int i = 0; i < top10->size(); i++)
         {
-            cout<<i+1<<". "<< top10->at(i).getTitle() << endl;
+            cout<<i+1<<". "<< top10->at(i).getTitle() << endl;//imprime los mejores
         }
         
         cout<<endl<<endl;
 
         cout <<"Looking for the parragraphs..."<<endl<<endl;
-        vector<Book> newTop10 = *top10;
+        vector<Book> newTop10 = *top10;//dereferencia el top10 a un vector de libros
         
-        BookParragraphFinder finder = BookParragraphFinder(newTop10);
-        finder.findAppearences();
-        finder.setTop30Parragraphs();
-        vector<Parragraph*>* top30 = finder.getTop30Parragraphs();
+        BookParragraphFinder finder = BookParragraphFinder(newTop10); //crea un BookParragraphFinder con el vector de libros
+        finder.findAppearences();// busca las apariciones de las palabras en los 10 libros
+        finder.setTop30Parragraphs(); //fija los mejores 3 parrafos por cada libro
+        vector<Parragraph*>* top30 = finder.getTop30Parragraphs(); //saca los 30 mejores parrafos
 
-        //question for ChatGPT
 
-        for(int j = 0; j < top30->size(); j++)
+        for(int j = 0; j < top30->size(); j++)//proceso de asignar sentimiento para cada parrafo
         {
-            cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<" "<<*top30->at(j)->getWordContained()<<endl;
+            cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<" "<<*top30->at(j)->getWordContained()<<endl;//esto enseña los parrafos y sus atributos
 
             //set the feeling and image
-            // string *feeling = asker.parragraphQuestion(*top30->at(j)->getContent());//TODO: uncomment this
-            // top30->at(j)->setFeeling(feeling);
-            // cout << "Feeling: " << *feeling << endl<< endl;
-            // string *image = asker.genImage(*feeling);
-            // top30->at(j)->setImage(image);
+            string wordToAnalyze = *top30->at(j)->getWordContained();//saca la palabra del match 
+            string* sentiment = new string(api.getSentimentString(wordToAnalyze));// con base en esa palabra saca el sentimiento con sentimentApi
+            top30->at(j)->setFeeling(sentiment);//setea el sentimiento
+            cout<<"Feeling: "<<*sentiment<<endl<<endl;
 
-            top30->at(j)->setFeeling(new string("feeling"));
-            top30->at(j)->setImage(new string("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuxqrYaFZR02ygglW1h3uQYTfkCqsvN5G6lblfKhDFJwcFCZgT7M0X58y-SrFIeCqqWT8&usqp=CAU"));
+            // top30->at(j)->setFeeling(new string("feeling"));
+            // top30->at(j)->setImage(new string("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuxqrYaFZR02ygglW1h3uQYTfkCqsvN5G6lblfKhDFJwcFCZgT7M0X58y-SrFIeCqqWT8&usqp=CAU"));
         }
 
-        string serialized = serializeParragraps(*top30);
+        string serialized = serializeParragraps(*top30);//se serializan los parrafos para luego ser enviados al servidor web
         return serialized;
     };
 

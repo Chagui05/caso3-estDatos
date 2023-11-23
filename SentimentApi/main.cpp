@@ -5,7 +5,7 @@
 int main(){
     ApiGetter api;
     // Palabra para la que deseas obtener el sentimiento
-    string wordToAnalyze = "sad";
+    string wordToAnalyze = "magic";
     string sentiment = api.getSentimentString(wordToAnalyze);
 
     std::cout<<"Sentimiento de "<<wordToAnalyze<<": "<<sentiment<<std::endl;

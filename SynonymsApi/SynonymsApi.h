@@ -4,39 +4,41 @@
 #include <string>
 #include <stdio.h>
 #include <curl/curl.h>
+#include "../SentimentApi/SentimentApi.h"
 #include "json.hpp"
+#
 
 using namespace std;
 using json = nlohmann::json;
 
 #define CHUNK_SIZE 2048
 
-typedef struct
-{
-    unsigned char *buffer;
-    size_t len;
-    size_t buflen;
-} get_request;
+// typedef struct
+// {
+//     unsigned char *buffer;
+//     size_t len;
+//     size_t buflen;
+// } get_request;
 
-// static method to act as a callback for curl
-size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
-{
-    size_t realsize = size * nmemb;
-    get_request *req = (get_request *)userdata;
+// // static method to act as a callback for curl
+// size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+// {
+//     size_t realsize = size * nmemb;
+//     get_request *req = (get_request *)userdata;
 
-    printf("receive chunk of %zu bytes\n", realsize);
+//     printf("receive chunk of %zu bytes\n", realsize);
 
-    while (req->buflen < req->len + realsize + 1)
-    {
-        req->buffer = (unsigned char *)realloc(req->buffer, req->buflen + CHUNK_SIZE);
-        req->buflen += CHUNK_SIZE;
-    }
-    memcpy(&req->buffer[req->len], ptr, realsize);
-    req->len += realsize;
-    req->buffer[req->len] = 0;
+//     while (req->buflen < req->len + realsize + 1)
+//     {
+//         req->buffer = (unsigned char *)realloc(req->buffer, req->buflen + CHUNK_SIZE);
+//         req->buflen += CHUNK_SIZE;
+//     }
+//     memcpy(&req->buffer[req->len], ptr, realsize);
+//     req->len += realsize;
+//     req->buffer[req->len] = 0;
 
-    return realsize;
-};
+//     return realsize;
+// };
 
 class Synonym
 {
@@ -109,6 +111,16 @@ public:
         curl_easy_cleanup(curl);
         curl_global_cleanup();
         
+        return result;
+    }
+
+    vector<T *> getSynonyms(vector<string> words)//TODO: hacer que devuelva un vector de vectores de synonyms
+    {
+        vector<T *> result;
+        for (auto &word : words)
+        {
+            result.push_back(getSynonyms(word));
+        }
         return result;
     }
 };

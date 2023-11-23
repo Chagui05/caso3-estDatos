@@ -34,6 +34,16 @@ public:
         return result;
     }
 
+    string* parragraphQuestion(string &parra)
+    {
+        string* result = new string();
+        string model = "gpt-3.5-turbo";
+        string question = "give me a feeling (just a word) based on this: "+ parra;
+        result = gptAPI.askQuestion(question,model);
+        return result;
+    }
+    
+
     string* genImage(string &input)
     {
         string* result = new string();

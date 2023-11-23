@@ -8,15 +8,15 @@ using namespace std;
 
 int main()
 {
-    AIQuestions asker = AIQuestions("APIHERE");
+    AIQuestions asker = AIQuestions("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");
 
     string question = "What is the meaning of life?";
-    string imgPrompt = "A painting of a cat sitting on a chair";
+    // string imgPrompt = "A painting of a cat sitting on a chair";
     string* res = asker.askQuestion(question);
-    string* img = asker.genImage(imgPrompt);
+    // string* img = asker.genImage(imgPrompt);
 
     cout <<"Respuesta: "<< *res << endl;
-    cout <<"Imagen: "<< *img << endl;
+    // cout <<"Imagen: "<< *img << endl;
 }
 
 #endif

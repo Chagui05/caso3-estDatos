@@ -30,7 +30,7 @@ public:
     }
     T* askQuestion(string &question, string &model)
     {
-
+        cout << "GPT3 API" << endl;
         T* result;
         get_request req = {.buffer = NULL, .len = 0, .buflen = 0};
 
@@ -50,6 +50,7 @@ public:
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
 
         //request prompt
+        cout << "payload" << endl;
         json payload = {
         {"model", model},
         {"messages", json::array({ // Ensure "messages" is an array
@@ -76,9 +77,13 @@ public:
         /* Check for errors */
         if (res == CURLE_OK )
         {
+            cout<<"call success"<<endl;
             json responseData = json::parse(req.buffer);
+            cout<<"parsed: "<<responseData.dump()<<endl;
             result = new string(responseData["choices"][0]["message"]["content"].get<string>());
+            cout<<"assigned: "<<*result<<endl;
             free(req.buffer);
+            cout<<"freed"<<endl;
         }
         else
         {
@@ -94,7 +99,7 @@ public:
         // clean the curl objects
         curl_easy_cleanup(curl);
         curl_global_cleanup();
-
+        cout <<"API response: "<< *result << endl;
         return result;
     };
 };

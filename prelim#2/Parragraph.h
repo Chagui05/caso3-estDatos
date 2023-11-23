@@ -22,7 +22,7 @@ private:
 
 public:
     Parragraph() {}
-    Parragraph(string* bookTitle, string* bookAuthor, string* content, string* filePath, int* page, int* rating, string* wordContained)
+    Parragraph(string* bookTitle, string* bookAuthor, string* content, string* filePath, int* page, int* rating, string* wordContained, string* image)
     {
         this->bookTitle = bookTitle;
         this->bookAuthor = bookAuthor;
@@ -32,7 +32,7 @@ public:
         this->rating = rating;
         this->wordContained = wordContained;
         this->feeling = new string();
-        this->image = new string();
+        this->image = image;
     }
 
     int getRating()

@@ -41,21 +41,21 @@ public:
         vector<Book>* allBooks = books.getBooks();
         ranked = MultisetAVLTree<Book>();
 
-        for (int i = 0; i < allBooks->size(); i++)
+        for (int i = 0; i < allBooks->size(); i++)//itera por cada libro
         {
-            unordered_map<string, vector<int>> wordIndex = allBooks->at(i).getWordIndex();
+            unordered_map<string, vector<int>> wordIndex = allBooks->at(i).getWordIndex();//obtiene hasmap de palabras de cada libro
             int appearances = 0;
-            for (string s : search)
+            for (string word : search)//itera en palabras a buscar
             {
-                toLowerCase(s);
-                if (wordIndex.find(s) != wordIndex.end())
+                toLowerCase(word);
+                if (wordIndex.find(word) != wordIndex.end())//revisa si las palabras estan en el hasmap del libro
                 {
                     string title = allBooks->at(i).getTitle();
-                    allBooks->at(i).addWordMatch(s);
-                    appearances += wordIndex[s].size();
+                    allBooks->at(i).addWordMatch(word);//agrega la palabra a wordmatches, se usa luego
+                    appearances += wordIndex[word].size(); // el size de ese vector es la cantidad de apariciones, por lo tanto la cant de apariciones,lo suma a las del libro
                 }
             }
-            if (appearances > 0)
+            if (appearances > 0)//despues de recorrer cada palabra ve el puntaja total del libro, si es mayor a 0 lo agrega al multiset
             {
                 ranked.insert(&allBooks->at(i), appearances);
             }
@@ -76,14 +76,14 @@ public:
 
     vector<Book>* getTop10Books()
     {
-        vector<Book*>* top = ranked.topVector();
+        vector<Book*>* top = ranked.topVector();//saca el vector de todos los libros rankeados de mejor a peor
         vector<Book>* top10Books = new vector<Book>();
         int tenOrLess = 10;
         
         if(top->size() < 10)
         {
             cout<< "size"<< top->size()<<endl;
-            tenOrLess = top->size();
+            tenOrLess = top->size();// esto asigna a menos en caso de que no se encontran 10 libros o mas 
         }
         
         for (int i = 0; i < tenOrLess; i++)

@@ -25,9 +25,14 @@ private:
     MultisetAVLTree<Parragraph>* allParragraphsRanked;
     vector<Parragraph> top3Parragraphs;
     vector<string> wordMatches;
+    vector<string>* imageURLs;
 
 public:
-
+    string getRandomImageURl()
+    {
+        int randomIndex = rand() % imageURLs->size();
+        return imageURLs->at(randomIndex);
+    }
     void resetBook()
     { 
         allParragraphsRanked = new MultisetAVLTree<Parragraph>(); 
@@ -37,6 +42,7 @@ public:
     Book() 
     {
         allParragraphsRanked = new MultisetAVLTree<Parragraph>();
+        imageURLs = new vector<string>();
     }
     Book(string title, string description, string author)
     {
@@ -76,10 +82,22 @@ public:
         getline(file, line);
         getline(file, line);
         author = line;
+        getline(file, line);
+        getline(file, line);
+        getline(file, line);
+        getline(file, line);
+        getline(file, line);
+        for(int i = 0; i < 4; i++)
+        {
+            getline(file, line);
+            imageURLs->push_back(line);
+            cout<<"url: "<< line<<endl;
+        }
+
         file.close();
     }
 
-    void loadBtree(string &filePath)
+    void loadBtree(string &filePath)//itera por linea y obtiene parrafos, que luego descompone palabra por palabra y annade al arbol del libro
     {
         WordParragraphBTree = new BTree(3);
         cout<<" ,Loading btree"<<endl;
@@ -90,16 +108,16 @@ public:
             cout << "Error al abrir el archivo: " << filePath << std::endl;
             return;
         }
-        string *parragraph = new string();
-        string* line = new string();
-        string *space = new string(" ");
-        int *page = new int(1);
-        int *lineCount = new int(1);
-        int *generalLineCount = new int(1);
+        string *parragraph = new string();//for a parragraph
+        string* line = new string();//lleva cuenta de las lineas
+        string *space = new string(" ");//pone espacios
+        int *page = new int(1);//lleva cuenta de la pagina
+        int *lineCount = new int(1);//linecount que se resetea
+        int *generalLineCount = new int(1);//linecount que no se resetea
 
         while (getline(file, *line)) 
         {
-            if (!isLineEmptyOrWhitespace(*line))
+            if (!isLineEmptyOrWhitespace(*line))// si linea no esta vacia quita: \n \r, annade contenido
             {
                 line->erase(std::remove(line->begin(), line->end(), '\n'), line->end());
                 line->erase(std::remove(line->begin(), line->end(), '\r'), line->end());
@@ -164,7 +182,7 @@ public:
 
         if (!file)
         {
-            cout << "Error al abrir el archivo: " << filePath << std::endl;
+            cout << "Error al abrir el archivo: "  << std::endl;
             return;
         }
 
@@ -176,7 +194,7 @@ public:
                 word.erase(std::remove_if(word.begin(), word.end(), [](char c)
                                           { return !std::isalpha(c); }),
                            word.end());
-                wordIndex[word].push_back(position);
+                wordIndex[word].push_back(position);//pushea la posicion de la palabra en el archivo y asi lleva cuenta de cuantas hay
             }
             position++;
         }
