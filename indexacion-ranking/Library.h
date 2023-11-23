@@ -15,6 +15,14 @@ private:
 
 public:
 
+    void resetLibrary()
+    {
+        for(int i = 0; i < allBooks.size(); i++)
+        {
+            allBooks.at(i).resetBook();
+        }
+        topBooks->clear();
+    }
     Library() {
         topBooks = new vector<Book>();
     };

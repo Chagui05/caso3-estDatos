@@ -48,6 +48,7 @@ public:
         cout <<endl<<endl;
 
         Library* libs = new Library(books);
+        libs->resetLibrary();
 
         BookHasher bookHasher = BookHasher(libs);
         cout << "RANK THE BOOKS BY THIS WORD: "; for(string s: search){ cout << s << " "; }
@@ -80,7 +81,7 @@ public:
         {
             string question = "give me a feeling (just a word) based on this: ";
             // cout <<j+1<<". "<<top30->at(j)->getRating()<< " " << *top30->at(j)->getContent()<< endl;
-            cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<endl;
+            cout <<j+1<<". "<<*top30->at(j)->getBookTitle()<<" "<<*top30->at(j)->getWordContained()<<endl;
             //set the feeling and image
             question += *top30->at(j)->getContent();
             // string *feeling = asker.askQuestion(question);TODO: uncomment this
@@ -89,7 +90,7 @@ public:
             // top30->at(j)->setImage(image);
 
             top30->at(j)->setFeeling(new string("feeling"));
-            top30->at(j)->setImage(new string("image"));
+            top30->at(j)->setImage(new string("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuxqrYaFZR02ygglW1h3uQYTfkCqsvN5G6lblfKhDFJwcFCZgT7M0X58y-SrFIeCqqWT8&usqp=CAU"));
             question = "";
         }
 

@@ -27,6 +27,13 @@ private:
     vector<string> wordMatches;
 
 public:
+
+    void resetBook()
+    { 
+        allParragraphsRanked = new MultisetAVLTree<Parragraph>(); 
+        top3Parragraphs.clear();
+        wordMatches.clear();
+    }
     Book() 
     {
         allParragraphsRanked = new MultisetAVLTree<Parragraph>();
