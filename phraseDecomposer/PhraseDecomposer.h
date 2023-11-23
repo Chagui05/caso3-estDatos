@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include "../SynonymsApi/SynonymsApi.h"
 
 // Clase que se encarga de eliminar las palabras de parada de un texto
 using namespace std;
@@ -72,6 +73,36 @@ public:
         }
 
         return words;
+    }
+
+
+        // Function to get synonyms for a vector of words
+    std::vector<std::string> getWordAndSynonyms(const std::vector<std::string>& words) {
+        apiGetter<Synonym> api; // Assuming Synonym is the class to store synonyms
+        std::vector<std::string> result;
+
+        for (const std::string& word : words) {
+            Synonym *synonyms = api.getSynonyms(word);
+
+            if (synonyms) {
+                // Add the original word to the result if it's not already in there
+                if (std::find(result.begin(), result.end(), word) == result.end()) {
+                    result.push_back(word);
+                }
+
+                // Add synonyms to the result
+                for (const std::string& synonym : synonyms->synonyms) {
+                    // Only add the synonym if it's not already in the result
+                    if (std::find(result.begin(), result.end(), synonym) == result.end()) {
+                        result.push_back(synonym);
+                    }
+                }
+
+                delete synonyms; // Clean up the Synonym object
+            }
+        }
+
+        return result;
     }
 
 private:
