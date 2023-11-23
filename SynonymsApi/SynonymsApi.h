@@ -114,7 +114,7 @@ public:
         return result;
     }
 
-    vector<T *> getSynonyms(vector<string> words)//TODO: hacer que devuelva un vector de vectores de synonyms
+    vector<T *> getSynonyms(vector<string> words)
     {
         vector<T *> result;
         for (auto &word : words)

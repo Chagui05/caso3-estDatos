@@ -105,7 +105,7 @@ private:
     void reverseInOrder(Node<T> *node)
     {
         if (node == nullptr)
-        {
+        {   
             return;
         }
         reverseInOrder(node->right);

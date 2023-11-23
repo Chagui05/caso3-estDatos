@@ -110,7 +110,7 @@ public:
 //     string question = "What is true love? can you experience it?";
 
 //     string chatGpt = "gpt-3.5-turbo";//model type
-//     GptAPI<string> gpt = GptAPI<string>("ApiKeyHere");//TODO:la quite, pero antes si estaba mandando una
+//     GptAPI<string> gpt = GptAPI<string>("ApiKeyHere");
 
 //     response = gpt.askQuestion(question, chatGpt);
 //     cout <<"API response: "<< *response << endl;

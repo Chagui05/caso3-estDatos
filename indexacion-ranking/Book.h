@@ -72,7 +72,7 @@ public:
             return;
         }
         string line;
-        getline(file, line);//TODO: quitar el /r, la funcion debe estar abajo
+        getline(file, line);
         title = line;
 
         getline(file, line);
@@ -167,7 +167,7 @@ public:
             wordObj->description->push_back(new string(*pParra));  // Create a new string, not just a pointer
             if (word.length() > 4)
             {
-                WordParragraphBTree->insert(wordObj);// TODO: revisar que si se este metiendo info valida
+                WordParragraphBTree->insert(wordObj);
             }
             delete wordObj;
         }

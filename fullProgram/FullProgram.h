@@ -15,6 +15,7 @@
 #include "../phraseDecomposer/PhraseDecomposer.h"
 #include "../SentimentApi/SentimentApi.h"
 #include "../SynonymsApi/SynonymsApi.h"
+// #include "../aiAPI/AIQuestions.h"
 
 
 using namespace std;
@@ -25,6 +26,7 @@ class FullProgram : public BookOperations<Book>
 {
 private:
     ApiGetter api;
+    //AIQuestions apiQuestioner = AIQuestions("APIKEYHERE")
 public:
     FullProgram(){};
 
@@ -89,6 +91,12 @@ public:
 
             // top30->at(j)->setFeeling(new string("feeling"));
             // top30->at(j)->setImage(new string("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuxqrYaFZR02ygglW1h3uQYTfkCqsvN5G6lblfKhDFJwcFCZgT7M0X58y-SrFIeCqqWT8&usqp=CAU"));
+        
+            //OPEN AI ALTERNATIVE
+            // string* feeling = apiQuestioner.parragraphQuestion(*top30->at(j)->getContent());
+            // top30->at(j)->setFeeling(feeling);
+            // string* image = apiQuestioner.genImage(*feeling);
+            // top30->at(j)->setImage(image);
         }
 
         string serialized = serializeParragraps(*top30);//se serializan los parrafos para luego ser enviados al servidor web

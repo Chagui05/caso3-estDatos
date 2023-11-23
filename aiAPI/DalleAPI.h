@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include "../generic/json.hpp"
+#include "../SentimentApi/SentimentApi.h"
 //g++ -o gpt.o DalleAPI.cpp -lcurl
 
 using namespace std;
@@ -79,7 +80,7 @@ public:
         {"prompt",input },
         {"n",1 },
         {"size","1024x1024" }
-        // {"model", model}//TODO: ver si quitando model sirve también
+        // {"model", model}//
         };
             
         cout << payload.dump() << endl;
@@ -130,7 +131,7 @@ public:
 //     string question = "golden falcon";
 
 //     string dalle = "dall-e-3";//model type
-//     DalleAPI<string> dalleAPi = DalleAPI<string>("api key here");//TODO:la quite, pero antes si estaba mandando una
+//     DalleAPI<string> dalleAPi = DalleAPI<string>("api key here");
 
 //     response = dalleAPi.genImage(question, dalle);
 //     cout <<"API response: "<< *response << endl;

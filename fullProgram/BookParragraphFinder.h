@@ -42,7 +42,7 @@ public:
                 string lookFor = book.getWordMatches().at(j);//saca la palabra a buscar
 
     
-                Word *word = book.getBtree()->search(lookFor);//TODO: 
+                Word *word = book.getBtree()->search(lookFor); 
                 if (word != nullptr) //revisa que no haya sacado un nullptr
                 {
                     for (int k = 0; k < word->description->size(); k++) // obtiene cada parrafo que habia en el word
